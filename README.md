@@ -50,7 +50,7 @@
 npm install
 
 # 개발 서버 실행
-npm dev
+npm run dev
 
 # 빌드
 npm build
