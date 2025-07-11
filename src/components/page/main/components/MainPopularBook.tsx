@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { categories, books } from "../../../../mocks/popularBook";
 
 const PopularBook = () => {

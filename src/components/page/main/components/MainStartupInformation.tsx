@@ -1,4 +1,3 @@
-import React from "react";
 import StartupInfoCard from "./StartupInfoCard";
 import { startupInformation } from "../../../../mocks/startupInformation";
 
