@@ -2,9 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
-import { PATHS } from "./constants/paths.ts";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Main from "./components/page/Main.tsx";
+import Main from "./components/page/main/Main.tsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const queryClient = new QueryClient();
