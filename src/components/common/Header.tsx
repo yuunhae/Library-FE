@@ -4,7 +4,7 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="flex justify-between items-center h-16 bg-white border-b border-b-[#3282F0] px-6">
+    <header className="flex justify-between items-center h-16 px-6">
       <div className="flex items-center space-x-3">
         <div className="w-7 h-7 bg-[#3282F0] rounded-sm" />
         <span className="text-xl font-bold text-[#1e293b]">
