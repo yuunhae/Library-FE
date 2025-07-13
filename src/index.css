@@ -84,4 +84,16 @@
   .container {
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
+
+  .text-12 {
+    @apply text-[#66666] text-xs;
+  }
+
+  .text-14 {
+    @apply text-[#66666] text-sm;
+  }
+
+  .text-16 {
+    @apply text-[#66666] text-base;
+  }
 }
