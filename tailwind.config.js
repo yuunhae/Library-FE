@@ -33,6 +33,9 @@ export default {
           "sans-serif"
         ],
       },
+      screens: {
+        'xs': {'max' : '430px'},
+      }
     },
   },
   plugins: [],
