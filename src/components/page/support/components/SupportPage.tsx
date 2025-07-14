@@ -13,7 +13,7 @@ const categories = [
   "교육프로그램",
   "해외진출",
 ];
-const statuses = ["전체", "모집중", "마감임박"];
+const statuses = ["전체", "모집중", "마감임박", "마감"];
 
 export default function SupportPage() {
   const [selectedCategory, setSelectedCategory] = useState("전체");
