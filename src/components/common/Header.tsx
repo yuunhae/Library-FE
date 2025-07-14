@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -13,15 +14,24 @@ export default function Header() {
       </div>
       {/* PC 메뉴 */}
       <nav className="hidden md:flex items-center space-x-8">
-        <span className="text-base font-normal text-[#64748B] cursor-pointer">
+        <Link
+          to="/book-recommendation"
+          className="text-base font-normal text-[#64748B] cursor-pointer"
+        >
           도서추천
-        </span>
-        <span className="text-base font-normal text-[#64748B] cursor-pointer">
+        </Link>
+        <Link
+          to="/support"
+          className="text-base font-normal text-[#64748B] cursor-pointer"
+        >
           지원사업
-        </span>
-        <span className="text-base font-normal text-[#64748B] cursor-pointer">
+        </Link>
+        <Link
+          to="/resources"
+          className="text-base font-normal text-[#64748B] cursor-pointer"
+        >
           창업자료
-        </span>
+        </Link>
       </nav>
       {/* 모바일 햄버거 */}
       <button
@@ -39,15 +49,27 @@ export default function Header() {
       {/* 모바일 메뉴 오버레이 */}
       {menuOpen && (
         <div className="absolute top-16 left-0 w-full bg-white border-b border-b-[#3282F0] flex flex-col items-center z-50 md:hidden">
-          <span className="py-4 text-base font-normal text-[#64748B] cursor-pointer">
+          <Link
+            to="/book-recommendation"
+            className="py-4 text-base font-normal text-[#64748B] cursor-pointer"
+            onClick={() => setMenuOpen(false)}
+          >
             도서추천
-          </span>
-          <span className="py-4 text-base font-normal text-[#64748B] cursor-pointer">
+          </Link>
+          <Link
+            to="/support"
+            className="py-4 text-base font-normal text-[#64748B] cursor-pointer"
+            onClick={() => setMenuOpen(false)}
+          >
             지원사업
-          </span>
-          <span className="py-4 text-base font-normal text-[#64748B] cursor-pointer">
+          </Link>
+          <Link
+            to="/resources"
+            className="py-4 text-base font-normal text-[#64748B] cursor-pointer"
+            onClick={() => setMenuOpen(false)}
+          >
             창업자료
-          </span>
+          </Link>
         </div>
       )}
     </header>
