@@ -1,4 +1,5 @@
 import React from "react";
+import { LuDownload } from "react-icons/lu";
 
 interface StartupInfoCardProps {
   tag: string;
@@ -37,7 +38,9 @@ const StartupInfoCard: React.FC<StartupInfoCardProps> = ({
           className="flex items-center gap-1 px-4 py-2 bg-[#222] text-white rounded-md text-sm font-medium w-fit mt-auto"
           onClick={onButtonClick}
         >
-          <span className="material-symbols-outlined text-base">download</span>
+          <span className="material-symbols-outlined text-base">
+            <LuDownload />
+          </span>
           다운로드
         </button>
       ) : (
