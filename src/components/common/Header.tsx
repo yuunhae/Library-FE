@@ -7,10 +7,12 @@ export default function Header() {
   return (
     <header className="flex justify-between items-center h-16 px-6">
       <div className="flex items-center space-x-3">
-        <div className="w-7 h-7 bg-[#3282F0] rounded-sm" />
-        <span className="text-xl font-bold text-[#1e293b]">
-          스타트업 라이브러리
-        </span>
+        <Link to="/" className="flex items-center space-x-3">
+          <div className="w-7 h-7 bg-[#3282F0] rounded-sm" />
+          <span className="text-xl font-bold text-[#1e293b]">
+            스타트업 라이브러리
+          </span>
+        </Link>
       </div>
       {/* PC 메뉴 */}
       <nav className="hidden md:flex items-center space-x-8">
