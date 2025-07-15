@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const MainSearchBar = () => {
   const [search, setSearch] = useState("");
+  const navigate = useNavigate();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
@@ -9,7 +11,9 @@ const MainSearchBar = () => {
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    // 검색 로직 추가
+    if (search.trim()) {
+      navigate(`/book-recommendation?search=${encodeURIComponent(search)}`);
+    }
   };
 
   return (

@@ -5,11 +5,22 @@ import { useState } from "react";
 import { categories, bookList } from "../../../mocks/bookList";
 import Tab from "./components/Tab";
 import BookCard from "./components/BookCard";
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 const BookRecommendation = () => {
-  const [search, setSearch] = useState("");
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const initialSearch = params.get("search") || "";
+
+  const [search, setSearch] = useState(initialSearch);
   const [selectedCategory, setSelectedCategory] = useState(0);
   const [sort, setSort] = useState("loan");
+
+  // 쿼리스트링이 바뀔 때마다 search 상태를 동기화
+  useEffect(() => {
+    setSearch(initialSearch);
+  }, [initialSearch]);
 
   // 카테고리별 필터링
   const filteredBooks = bookList
