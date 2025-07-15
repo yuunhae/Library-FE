@@ -7,7 +7,6 @@ import Main from "./components/page/main/Main.tsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import BookDetail from "./components/page/bookDetail/BookDetail.tsx";
 import BookRecommendation from "./components/page/bookRecommendation/\bBookRecommendation.tsx";
-import Header from "./components/common/Header";
 import SupportPage from "./components/page/support/components/SupportPage";
 import ResourcesPage from "./components/page/resources/components/ResourcesPage";
 

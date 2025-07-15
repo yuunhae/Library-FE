@@ -1,32 +1,52 @@
-export const governmentFunds = [
+// 정부지원사업 mock 데이터
+
+export const governmentFundList = [
   {
-    title: "창업도전 K-스타트업",
-    department: "중소벤처기업부",
-    amount: "최대 2억원",
-    deadline: "2025-08-31",
+    id: 1,
+    title: "창업보드 K-스타트업",
+    description:
+      "우수한 창업 아이템을 보유한 창업자를 위한 정부 지원사업. 선정된 창업자에게 자금과 멘토링을 지원합니다.",
+    organizingBody: "중소벤처기업부",
+    category: ["전체", "창업", "예방창업"],
+    endDate: "2025-08-31",
+    target: "예비창업자, 창업 7년 이내 기업 대상",
+    field: "행사/네트워킹",
+    scale: "",
   },
   {
-    title: "예비창업패키지",
-    department: "중소벤처기업부",
-    amount: "최대 2억원",
-    deadline: "2025-08-31",
+    id: 2,
+    title: "창업보드 K-스타트업",
+    description:
+      "우수한 창업 아이템을 보유한 창업자를 위한 정부 지원사업. 선정된 창업자에게 자금과 멘토링을 지원합니다.",
+    organizingBody: "중소벤처기업부",
+    category: ["전체", "창업", "예방창업"],
+    endDate: "2025-07-10",
+    target: "예비창업자, 창업 7년 이내 기업 대상",
+    field: "행사/네트워킹",
+    scale: "",
   },
   {
-    title: "초기창업패키지",
-    department: "중소벤처기업부",
-    amount: "최대 2억원",
-    deadline: "2025-08-31",
+    id: 3,
+    title: "창업보드 K-스타트업",
+    description:
+      "우수한 창업 아이템을 보유한 창업자를 위한 정부 지원사업. 선정된 창업자에게 자금과 멘토링을 지원합니다.",
+    organizingBody: "중소벤처기업부",
+    category: ["전체", "창업", "예방창업"],
+    endDate: "2025-07-20",
+    target: "예비창업자, 창업 7년 이내 기업 대상",
+    field: "행사/네트워킹",
+    scale: "",
   },
   {
-    title: "TIPS 프로그램",
-    department: "중소벤처기업부",
-    amount: "최대 2억원",
-    deadline: "2025-08-31",
-  },
-  {
-    title: "액셀러레이터 투자연계",
-    department: "중소벤처기업부",
-    amount: "최대 2억원",
-    deadline: "2025-08-31",
+    id: 4,
+    title: "창업보드 K-스타트업",
+    description:
+      "우수한 창업 아이템을 보유한 창업자를 위한 정부 지원사업. 선정된 창업자에게 자금과 멘토링을 지원합니다.",
+    organizingBody: "중소벤처기업부",
+    category: ["전체", "창업", "예방창업"],
+    endDate: "2025-08-31",
+    target: "예비창업자, 창업 7년 이내 기업 대상",
+    field: "행사/네트워킹",
+    scale: "",
   },
 ];
