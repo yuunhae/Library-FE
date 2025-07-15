@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { categories, books } from "../../../../mocks/popularBook";
+import { categories, bookList } from "../../../../mocks/bookList";
 import PopularBookCard from "./PopularBookCard";
 
 const PopularBook = () => {
@@ -31,7 +31,7 @@ const PopularBook = () => {
         ))}
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 sm:gap-6">
-        {books.map((book, idx) => (
+        {bookList.map((book, idx) => (
           <PopularBookCard
             key={idx}
             cover={""}
@@ -39,7 +39,7 @@ const PopularBook = () => {
             author={book.author}
             publisher={book.publisher}
             year={2025}
-            loanCount={book.count}
+            loanCount={book.loanCount}
             onDetail={() => {}}
           />
         ))}
