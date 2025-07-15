@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { categories, books } from "../../../../mocks/popularBook";
-import BookCard from "../../bookRecommendation/components/BookCard";
+import { categories, bookList } from "../../../../mocks/bookList";
+import PopularBookCard from "./PopularBookCard";
 
 const PopularBook = () => {
   const [selected, setSelected] = useState(0);
@@ -31,17 +31,15 @@ const PopularBook = () => {
         ))}
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 sm:gap-6">
-        {books.map((book, idx) => (
-          <BookCard
+        {bookList.map((book, idx) => (
+          <PopularBookCard
             key={idx}
             cover={""}
             title={book.title}
             author={book.author}
             publisher={book.publisher}
             year={2025}
-            available={true}
-            loanCount={book.count}
-            pages={0}
+            loanCount={book.loanCount}
             onDetail={() => {}}
           />
         ))}
