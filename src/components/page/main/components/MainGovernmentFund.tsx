@@ -1,5 +1,5 @@
 import GovernmentFundCard from "./GovernmentFundCard";
-import { governmentFunds } from "../../../../mocks/governmentFund";
+import { governmentFundList } from "../../../../mocks/governmentFund";
 
 const MainGovernmentFund = () => {
   return (
@@ -13,7 +13,7 @@ const MainGovernmentFund = () => {
         </button>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 sm:gap-6">
-        {governmentFunds.map((fund, idx) => (
+        {governmentFundList.map((fund: any, idx: number) => (
           <GovernmentFundCard
             key={idx}
             title={fund.title}
