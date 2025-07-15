@@ -1,9 +1,9 @@
 import { useState } from "react";
-import Header from "../../../common/Header";
-import { governmentFundList } from "../../../../mocks/governmentFund";
-import CategoryFilter from "./CategoryFilter";
-import GovernmentFundList from "./GovernmentFundList";
-import { TitleAndDescription } from "../../../common/TitleAndDescription";
+import Header from "../../common/Header";
+import { governmentFundList } from "../../../mocks/governmentFund";
+import CategoryFilter from "./components/CategoryFilter";
+import GovernmentFundList from "./components/GovernmentFundList";
+import { TitleAndDescription } from "../../common/TitleAndDescription";
 
 const categories = [
   "전체",

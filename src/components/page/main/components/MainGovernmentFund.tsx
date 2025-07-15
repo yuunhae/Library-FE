@@ -12,14 +12,14 @@ const MainGovernmentFund = () => {
           전체보기
         </button>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 sm:gap-6">
-        {governmentFundList.map((fund: any, idx: number) => (
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8">
+        {governmentFundList.map((fund: any, id: number) => (
           <GovernmentFundCard
-            key={idx}
+            key={id}
             title={fund.title}
-            department={fund.department}
-            amount={fund.amount}
-            deadline={fund.deadline}
+            organizingBody={fund.organizingBody}
+            field={fund.field}
+            endDate={fund.endDate}
           />
         ))}
       </div>
