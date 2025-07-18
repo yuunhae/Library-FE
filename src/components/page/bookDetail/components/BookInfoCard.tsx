@@ -1,7 +1,7 @@
 import {
   bookDatails,
   bookDetailFields,
-} from "../../../../mocks/bookDetailDate";
+} from "../../../../mocks/bookDetailData";
 
 function BookInfoCard() {
   return (

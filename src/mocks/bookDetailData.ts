@@ -12,7 +12,7 @@ export const bookDetailFields: Array<{
   label: string | number;
 }> = [
   { key: "publisher", label: "출판사" },
-  { key: "publishDate", label: "출간일" },
+  { key: "publishDate", label: "출간연도" },
   { key: "ISBN", label: "ISBN" },
   { key: "page", label: "페이지" },
   { key: "loanCount", label: "대출횟수" },

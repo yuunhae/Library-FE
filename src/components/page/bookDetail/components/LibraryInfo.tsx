@@ -48,11 +48,15 @@ function LibraryInfo() {
             type="text"
             value={search}
             onChange={handleInputChange}
-            placeholder="책 제목이나 저자를 검색하세요"
+            placeholder="도서관명 또는 지역을 검색하세요"
             className="w-[93%] xs:w-[80%] h-full border  border-border-color px-3 text-sm placeholder-gray-400 xs:placeholder:text-xs"
           />
           <button
-            onClick={() => setIsNationWide((prev) => !prev)}
+            onClick={(event) =>
+              event.detail === 0
+                ? event.preventDefault()
+                : setIsNationWide((prev) => !prev)
+            }
             className={`w-[7%] xs:w-[20%]  h-full text-sm border border-solid border-border-color hover:bg-point-color  hover:text-white transition-colors ${isNationwide ? "bg-point-color text-white" : "bg-white"}`}
           >
             전국
