@@ -37,8 +37,8 @@ const BookRecommendation = () => {
     categoryIndex: number,
     page: number = 1
   ) => {
-    console.log("fetchBooks 파라미터", searchKeyword, categoryIndex, page);
-    console.log("API URL:", import.meta.env.VITE_API_URL);
+    //console.log("fetchBooks 파라미터", searchKeyword, categoryIndex, page);
+    //console.log("API URL:", import.meta.env.VITE_API_URL);
     setLoading(true);
     setError(null);
 
@@ -48,17 +48,19 @@ const BookRecommendation = () => {
       page: page,
       size: 100,
     };
-    console.log("API 요청 파라미터:", params);
+    //console.log("API 요청 파라미터:", params);
 
     try {
       const response: SearchBooksResponse = await searchBooks(params);
 
-      console.log("API 응답 데이터:", response); // 추가
+      //console.log("API 응답 데이터:", response); // 추가
 
       // 정렬 적용
       const sortedBooks = sortBooks(response.content, sort);
 
       setBooks(sortedBooks);
+      //console.log(books);
+
       setTotalCount(response.totalCount);
       setCurrentPage(response.currentPage);
     } catch (err: any) {
@@ -161,10 +163,7 @@ const BookRecommendation = () => {
                 available={book.available}
                 loanCount={book.loanCount}
                 pageCount={book.pageCount}
-                onDetail={() => {
-                  // 상세 페이지로 이동하는 로직 추가 예정
-                  console.log("도서 상세:", book);
-                }}
+                isbn13={book.isbn13}
               />
             ))}
           </div>
