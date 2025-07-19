@@ -43,7 +43,7 @@ const GovernmentFundCard: React.FC<GovernmentFundCardProps> = ({
           </div>
         )}
       </div>
-      <div className="text-xs bg-[#e8f0fe] text-[#3578FF] px-2 py-1 rounded font-medium">
+      <div className="w-fit text-xs bg-[#e8f0fe] text-[#3578FF] px-2 py-1 rounded font-medium">
         {organizationName}
       </div>
       <div className="text-sm text-[#222] font-normal mb-2">{content}</div>

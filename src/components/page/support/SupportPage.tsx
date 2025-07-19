@@ -14,7 +14,7 @@ const categories = [
   "교육프로그램",
   "해외진출",
 ];
-const statuses = ["전체", "모집중", "마감임박", "마감"];
+const statuses = ["전체", "모집중", "마감임박"];
 
 export default function SupportPage() {
   const [selectedCategory, setSelectedCategory] = useState("전체");
@@ -32,7 +32,6 @@ export default function SupportPage() {
       .finally(() => setLoading(false));
   }, [selectedCategory]);
 
-  // API 데이터를 GovernmentFundList의 Fund 타입에 맞게 변환
   const mappedFunds = programs.map((p, idx) => ({
     id: idx + 1,
     title: p.title,
