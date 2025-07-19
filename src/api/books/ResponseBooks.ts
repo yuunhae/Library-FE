@@ -10,6 +10,7 @@ export interface Book {
   loanCount: number;
   pageCount: number;
   description?: string;
+  isbn13: string;
 }
 
 // API 응답 타입 정의
