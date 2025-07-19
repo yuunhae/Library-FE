@@ -42,6 +42,10 @@ const SearchBar: React.FC<SearchBarProps> = ({
             ▼
           </span>
         </div>
+        <button className="h-full px-4 py-2 bg-[#3578FF] text-white rounded-md">
+          {" "}
+          검색
+        </button>
       </form>
     </div>
   );
