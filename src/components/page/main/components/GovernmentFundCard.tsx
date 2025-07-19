@@ -37,7 +37,7 @@ const GovernmentFundCard: React.FC<GovernmentFundCardProps> = ({
             </React.Fragment>
           ))}
         </div>
-        <div className="text-xs bg-[#e8f0fe] text-[#3578FF] px-2 py-1 rounded font-medium">
+        <div className="text-xs bg-[#e8f0fe] text-[#3578FF] px-3 py-1 rounded font-medium w-fit break-words mb-2">
           {organizingBody}
         </div>
       </div>

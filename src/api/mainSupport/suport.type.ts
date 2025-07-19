@@ -2,12 +2,11 @@
 export interface SupportProgram {
   title: string;
   content: string;
+  supportTarget: string;
   supportField: string;
-  supportScale: string;
   receptionStartDate: string;
   receptionEndDate: string;
   detailUrl: string;
-  supportOrgName: string;
   organizationName: string;
 }
 
