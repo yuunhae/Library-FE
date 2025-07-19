@@ -1,9 +1,30 @@
-import { useState } from "react";
-import { categories, bookList } from "../../../../mocks/bookList";
+import { useState, useEffect } from "react";
+import { categories } from "../../../../mocks/bookList";
 import PopularBookCard from "./PopularBookCard";
+import { getPopularBooks } from "../../../../api/mainPopularBooks/popularBooks";
+import type { PopularBook } from "../../../../api/mainPopularBooks/popularBooks.type";
 
-const PopularBook = () => {
+const MainPopularBook = () => {
   const [selected, setSelected] = useState(0);
+  const [books, setBooks] = useState<PopularBook[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchBooks = async () => {
+      setLoading(true);
+      try {
+        const category =
+          categories[selected] === "전체" ? undefined : categories[selected];
+        const data = await getPopularBooks(category);
+        setBooks(data);
+      } catch (e) {
+        setBooks([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchBooks();
+  }, [selected]);
 
   return (
     <section className="w-full bg-[#fafafa] min-h-auto p-4 sm:p-6 md:p-8 lg:p-10">
@@ -31,21 +52,27 @@ const PopularBook = () => {
         ))}
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 sm:gap-6">
-        {bookList.map((book, idx) => (
-          <PopularBookCard
-            key={idx}
-            cover={""}
-            title={book.title}
-            author={book.author}
-            publisher={book.publisher}
-            year={2025}
-            loanCount={book.loanCount}
-            onDetail={() => {}}
-          />
-        ))}
+        {loading ? (
+          <div className="col-span-full text-center">로딩 중...</div>
+        ) : books.length === 0 ? (
+          <div className="col-span-full text-center">도서가 없습니다.</div>
+        ) : (
+          books.map((book, idx) => (
+            <PopularBookCard
+              key={idx}
+              cover={book.bookImageUrl}
+              title={book.title}
+              author={book.author}
+              publisher={book.publisher}
+              year={Number(book.publicationYear)}
+              loanCount={book.loanCount}
+              onDetail={() => {}}
+            />
+          ))
+        )}
       </div>
     </section>
   );
 };
 
-export default PopularBook;
+export default MainPopularBook;

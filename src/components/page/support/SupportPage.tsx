@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "../../common/Header";
-import { governmentFundList } from "../../../mocks/governmentFund";
 import CategoryFilter from "./components/CategoryFilter";
 import GovernmentFundList from "./components/GovernmentFundList";
 import { TitleAndDescription } from "../../common/TitleAndDescription";
+import { getSupportPrograms } from "../../../api/mainSupport/suport";
+import type { SupportProgram } from "../../../api/mainSupport/suport.type";
 
 const categories = [
   "전체",
@@ -13,11 +14,36 @@ const categories = [
   "교육프로그램",
   "해외진출",
 ];
-const statuses = ["전체", "모집중", "마감임박", "마감"];
+const statuses = ["전체", "모집중", "마감임박"];
 
 export default function SupportPage() {
   const [selectedCategory, setSelectedCategory] = useState("전체");
   const [selectedStatus, setSelectedStatus] = useState("전체");
+  const [programs, setPrograms] = useState<SupportProgram[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    setLoading(true);
+    setError(null);
+    getSupportPrograms(selectedCategory)
+      .then((res) => setPrograms(res.content))
+      .catch((e) => setError("데이터를 불러오지 못했습니다."))
+      .finally(() => setLoading(false));
+  }, [selectedCategory]);
+
+  const mappedFunds = programs.map((p, idx) => ({
+    id: idx + 1,
+    title: p.title,
+    content: p.content,
+    supportTarget: p.supportTarget,
+    supportField: p.supportField,
+    receptionStartDate: p.receptionStartDate,
+    receptionEndDate: p.receptionEndDate,
+    detailUrl: p.detailUrl,
+    organizationName: p.organizationName,
+    category: [selectedCategory],
+  }));
 
   return (
     <div className="w-full text-left">
@@ -48,11 +74,17 @@ export default function SupportPage() {
           />
         </div>
       </div>
-      <GovernmentFundList
-        funds={governmentFundList}
-        selectedCategory={selectedCategory}
-        selectedStatus={selectedStatus}
-      />
+      {loading ? (
+        <div className="text-center w-full py-10">불러오는 중...</div>
+      ) : error ? (
+        <div className="text-center w-full py-10 text-red-500">{error}</div>
+      ) : (
+        <GovernmentFundList
+          funds={mappedFunds}
+          selectedCategory={selectedCategory}
+          selectedStatus={selectedStatus}
+        />
+      )}
     </div>
   );
 }

@@ -4,16 +4,14 @@ import GovernmentFundCard from "./GovernmentFundCard";
 interface Fund {
   id: number;
   title: string;
-  description: string;
-  category: string[];
-  status?: string;
-  dday?: string;
-  endDate: string;
-  detail?: string;
-  target: string;
-  field: string;
-  dateRange?: string;
-  organizingBody?: string;
+  content: string;
+  supportTarget: string;
+  supportField: string;
+  receptionStartDate: string;
+  receptionEndDate: string;
+  detailUrl: string;
+  organizationName: string;
+  category: string[]; // 카테고리 추가
 }
 
 interface GovernmentFundListProps {
@@ -22,10 +20,17 @@ interface GovernmentFundListProps {
   selectedStatus: string;
 }
 
-const getStatusAndDday = (endDate: string) => {
+const getStatusAndDday = (receptionEndDate: string) => {
+  // YYYYMMDD 형식 처리
+  let formattedDate = receptionEndDate;
+  if (receptionEndDate && receptionEndDate.length === 8) {
+    formattedDate = `${receptionEndDate.slice(0, 4)}-${receptionEndDate.slice(4, 6)}-${receptionEndDate.slice(6, 8)}`;
+  }
+  if (!formattedDate || isNaN(new Date(formattedDate).getTime())) {
+    return { status: "마감일 미정", dday: "미정" };
+  }
   const today = new Date();
-  const end = new Date(endDate);
-  // 시간 차이(밀리초)
+  const end = new Date(formattedDate);
   const diff = end.getTime() - today.setHours(0, 0, 0, 0);
   const dday = Math.ceil(diff / (1000 * 60 * 60 * 24));
 
@@ -51,28 +56,29 @@ const GovernmentFundList = ({
       : funds.filter((f) => f.category.includes(selectedCategory));
 
   if (selectedStatus !== "전체") {
-    filtered = filtered.filter((f) => f.status === selectedStatus);
+    filtered = filtered.filter(
+      (f) => getStatusAndDday(f.receptionEndDate).status === selectedStatus
+    );
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2">
+    <div className="grid grid-cols-1 md:mt-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 m-4">
+      {" "}
       {filtered.map((fund) => {
-        const { status, dday } = getStatusAndDday(fund.endDate);
-        const dateRange = fund.dateRange || fund.endDate;
+        const { status, dday } = getStatusAndDday(fund.receptionEndDate);
         return (
           <GovernmentFundCard
             key={fund.id}
             title={fund.title}
-            description={fund.description}
-            category={fund.category}
+            content={fund.content}
+            supportTarget={fund.supportTarget}
+            supportField={fund.supportField}
+            organizationName={fund.organizationName}
+            receptionStartDate={fund.receptionStartDate}
+            receptionEndDate={fund.receptionEndDate}
+            detailUrl={fund.detailUrl}
             status={status}
             dday={dday}
-            endDate={fund.endDate}
-            detail={fund.detail || ""}
-            target={fund.target}
-            field={fund.field}
-            organizingBody={fund.organizingBody || ""}
-            dateRange={dateRange}
           />
         );
       })}

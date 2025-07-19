@@ -1,35 +1,35 @@
 import React from "react";
 
 interface BookCardProps {
-  cover: string;
+  bookImageUrl: string;
   title: string;
   author: string;
   publisher: string;
-  year: number;
+  publicationYear: number;
   available: boolean;
   loanCount: number;
-  pages: number;
+  pageCount: number;
   onDetail?: () => void;
 }
 
 const BookCard: React.FC<BookCardProps> = ({
-  cover,
+  bookImageUrl,
   title,
   author,
   publisher,
-  year,
+  publicationYear,
   available,
   loanCount,
-  pages,
+  pageCount,
   onDetail,
 }) => {
   return (
     <div className="bg-white rounded-lg border border-gray-200 p-4 flex flex-col h-full shadow-sm">
       <div className="flex-1 flex flex-col items-center justify-center m-5">
         <div className="w-28 h-36 bg-gray-100 flex items-center justify-center mb-2">
-          {cover ? (
+          {bookImageUrl ? (
             <img
-              src={cover}
+              src={bookImageUrl}
               alt={title}
               className="w-full h-full object-contain"
             />
@@ -39,21 +39,20 @@ const BookCard: React.FC<BookCardProps> = ({
         </div>
         <div className="text-base font-bold text-center mb-1">{title}</div>
         <div className="text-xs text-gray-500 text-center mb-1">
-          {author} · {publisher}, {year}
+          {author} · {publisher}, {publicationYear}
         </div>
       </div>
       <div className="flex flex-row justify-between items-center text-xs text-gray-500 mb-2">
-        <span>{pages}p</span>
-        <span>대출 {loanCount.toLocaleString()}건</span>
+        <span>페이지</span>
+        <span className="text-blue-600">{pageCount}p</span>
+      </div>
+      <div className="flex flex-row justify-between items-center text-xs text-gray-500 mb-2">
+        <span>대출</span>
+        <span className="text-blue-600">{loanCount.toLocaleString()}회</span>
       </div>
       <div className="flex flex-row justify-between items-center mt-auto">
-        <span
-          className={`text-xs font-semibold ${available ? "text-blue-600" : "text-gray-400"}`}
-        >
-          {available ? "대출 가능" : "대출 불가"}
-        </span>
         <button
-          className="px-4 py-1 bg-[#3578FF] text-white rounded-md text-xs font-medium hover:bg-[#2453b3] transition-colors"
+          className="w-full h-8 px-4 py-1 bg-[#3578FF] text-white rounded-md text-xs font-medium hover:bg-[#2453b3] transition-colors"
           onClick={onDetail}
         >
           상세보기

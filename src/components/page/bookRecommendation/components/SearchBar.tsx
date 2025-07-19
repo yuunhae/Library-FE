@@ -1,11 +1,9 @@
 import React from "react";
-// Tab import 제거
 
 interface SearchBarProps {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSearch: (e: React.FormEvent) => void;
-  // categories, selectedCategory, onCategoryChange 제거
   sort: string;
   onSortChange: (sort: string) => void;
 }
@@ -42,6 +40,10 @@ const SearchBar: React.FC<SearchBarProps> = ({
             ▼
           </span>
         </div>
+        <button className="h-full px-4 py-2 bg-[#3578FF] text-white rounded-md">
+          {" "}
+          검색
+        </button>
       </form>
     </div>
   );
