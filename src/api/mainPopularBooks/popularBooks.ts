@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { PopularBooksResponse } from "./popularBooks.type";
+import type { PopularBooksResponse } from "../mainPopularBooks/popularBooks.type";
 
 const BASE_URL = "https://api.startup.klr.kr/api/books/popular";
 

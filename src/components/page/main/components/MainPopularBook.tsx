@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { categories } from "../../../../mocks/bookList";
 import PopularBookCard from "./PopularBookCard";
-import { getPopularBooks } from "../../../../api/books/popularBooks";
-import type { PopularBook } from "../../../../api/books/popularBooks.type";
+import { getPopularBooks } from "../../../../api/mainPopularBooks/popularBooks";
+import type { PopularBook } from "../../../../api/mainPopularBooks/popularBooks.type";
 
 const MainPopularBook = () => {
   const [selected, setSelected] = useState(0);
