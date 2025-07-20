@@ -12,15 +12,15 @@ function BookDetail() {
           <Header />
         </header>
 
-        <main className="p-2.5">
+        <main className="p-4">
           <nav className="flex">
             {/* href 추후수정 */}
-            <a href="/" className="text-sm text-point-color mb-4">
+            <a href="/" className="text-sm text-point-color mb-4 font-light">
               ← 도서 목록으로 돌아가기
             </a>
           </nav>
 
-          <div className="p-2.5 grid grid-cols-1 lg:grid-cols-[1fr_3fr] gap-8">
+          <div className=" grid grid-cols-1 lg:grid-cols-[1fr_2.5fr] gap-8">
             <section className="space-y-4">
               <BookDetailCard />
             </section>

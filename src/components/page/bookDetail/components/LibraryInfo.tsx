@@ -29,7 +29,7 @@ function LibraryInfo() {
                 <button
                   key={opt}
                   onClick={() => setOption(opt)}
-                  className={`w-14 h-8 text-sm hover:bg-point-color hover:text-white transition-colors ${opt === option ? "bg-point-color text-white" : "bg-[#F5F5F5] text-#666666 hover:bg-point-color"}`}
+                  className={`w-14 h-8 text-sm font-light hover:bg-point-color hover:text-white transition-colors ${opt === option ? "bg-point-color text-white" : "bg-[#F5F5F5] text-[#666666] hover:bg-point-color"}`}
                 >
                   {opt}
                 </button>
@@ -49,7 +49,7 @@ function LibraryInfo() {
             value={search}
             onChange={handleInputChange}
             placeholder="도서관명 또는 지역을 검색하세요"
-            className="w-[93%] xs:w-[80%] h-full border  border-border-color px-3 text-sm placeholder-gray-400 xs:placeholder:text-xs"
+            className="w-[93%] xs:w-[80%] h-full border  border-border-color px-3 text-sm placeholder-gray-400 xs:placeholder:text-xs font-light"
           />
           <button
             onClick={(event) =>
@@ -57,14 +57,14 @@ function LibraryInfo() {
                 ? event.preventDefault()
                 : setIsNationWide((prev) => !prev)
             }
-            className={`w-[7%] xs:w-[20%]  h-full text-sm border border-solid border-border-color hover:bg-point-color  hover:text-white transition-colors ${isNationwide ? "bg-point-color text-white" : "bg-white"}`}
+            className={`w-[7%] xs:w-[20%]  h-full text-sm border border-solid font-light border-border-color hover:bg-point-color  hover:text-white transition-colors ${isNationwide ? "bg-point-color text-white" : "bg-white"}`}
           >
             전국
           </button>
         </form>
       </section>
 
-      <p className="text-left text-sm text-#666">
+      <p className="text-left text-sm text-[#666] font-light">
         총 5개의 도서관 중 4개 도서관에서 대출 가능
       </p>
 
