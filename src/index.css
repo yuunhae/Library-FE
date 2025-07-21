@@ -26,11 +26,12 @@
       "Segoe UI Emoji",
       "Segoe UI Symbol",
       sans-serif;
-    @apply text-gray-800 antialiased;
+    @apply text-gray-950 antialiased;
   }
 
   * {
     box-sizing: border-box;
+     -webkit-font-smoothing: antialiased;
   }
 
   button {

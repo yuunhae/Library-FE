@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 interface BookCardProps {
   bookImageUrl: string;
@@ -9,9 +10,9 @@ interface BookCardProps {
   available: boolean;
   loanCount: number;
   pageCount: number;
-  onDetail?: () => void;
+  isbn13: string;
+  // onDetail?: () => void;
 }
-
 const BookCard: React.FC<BookCardProps> = ({
   bookImageUrl,
   title,
@@ -21,7 +22,8 @@ const BookCard: React.FC<BookCardProps> = ({
   available,
   loanCount,
   pageCount,
-  onDetail,
+  isbn13,
+  // onDetail,
 }) => {
   return (
     <div className="bg-white rounded-lg border border-gray-200 p-4 flex flex-col h-full shadow-sm">
@@ -51,12 +53,13 @@ const BookCard: React.FC<BookCardProps> = ({
         <span className="text-blue-600">{loanCount.toLocaleString()}회</span>
       </div>
       <div className="flex flex-row justify-between items-center mt-auto">
-        <button
+        <Link
           className="w-full h-8 px-4 py-1 bg-[#3578FF] text-white rounded-md text-xs font-medium hover:bg-[#2453b3] transition-colors"
-          onClick={onDetail}
+          to={"/bookdetail"}
+          state={{ isbn13: isbn13 }}
         >
           상세보기
-        </button>
+        </Link>
       </div>
     </div>
   );
