@@ -1,6 +1,6 @@
 import apiInstance from "../apiInstance";
 import type { SearchBooksRequest } from "./searchBooks.typs";
-import type { Book, SearchBooksResponse, ApiError } from "./ResponseBooks";
+import type { Book, SearchBooksResponse } from "./ResponseBooks";
 
 /**
  * 도서 검색 API 호출 함수

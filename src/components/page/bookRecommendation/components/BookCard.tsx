@@ -7,7 +7,6 @@ interface BookCardProps {
   author: string;
   publisher: string;
   publicationYear: number;
-  available: boolean;
   loanCount: number;
   pageCount: number;
   isbn13: string;
@@ -19,7 +18,6 @@ const BookCard: React.FC<BookCardProps> = ({
   author,
   publisher,
   publicationYear,
-  available,
   loanCount,
   pageCount,
   isbn13,

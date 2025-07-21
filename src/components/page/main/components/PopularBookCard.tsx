@@ -17,7 +17,6 @@ const PopularBookCard: React.FC<BookCardProps> = ({
   publisher,
   year,
   loanCount,
-  onDetail,
 }) => {
   return (
     <div className="bg-white rounded-lg border border-gray-200 p-4 flex flex-col h-full shadow-sm">

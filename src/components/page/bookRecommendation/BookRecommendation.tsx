@@ -29,7 +29,6 @@ const BookRecommendation = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [totalCount, setTotalCount] = useState(0);
-  const [currentPage, setCurrentPage] = useState(1);
 
   // API 호출 함수
   const fetchBooks = async (
@@ -62,7 +61,6 @@ const BookRecommendation = () => {
       //console.log(books);
 
       setTotalCount(response.totalCount);
-      setCurrentPage(response.currentPage);
     } catch (err: any) {
       console.error("도서 검색 에러:", err);
       setError(err.message || "도서를 불러오는데 실패했습니다.");
@@ -160,7 +158,6 @@ const BookRecommendation = () => {
                 author={book.author}
                 publisher={book.publisher}
                 publicationYear={book.publicationYear}
-                available={book.available}
                 loanCount={book.loanCount}
                 pageCount={book.pageCount}
                 isbn13={book.isbn13}
