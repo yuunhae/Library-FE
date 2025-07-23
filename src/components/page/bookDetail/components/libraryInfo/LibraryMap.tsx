@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+
 declare global {
   interface Window {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -16,7 +17,7 @@ function LibraryMap() {
         if (!mapContainer) return;
 
         const mapOptions = {
-          center: new window.kakao.maps.LatLng(37.497545, 127.002907), // 지도의 중심좌표
+          center: new window.kakao.maps.LatLng(37.497545, 127.002907), // 지도의 중심좌표 :  국립중앙도서관 좌표
           level: 3,
         };
         new window.kakao.maps.Map(mapContainer, mapOptions);

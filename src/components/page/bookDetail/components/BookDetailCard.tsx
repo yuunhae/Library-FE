@@ -4,7 +4,6 @@ import { useFetchBookDetailDataQuery } from "../../../../api/bookDetail/useFetch
 function BookDetailCard() {
   const location = useLocation();
   const { data } = useFetchBookDetailDataQuery(location.state.isbn13);
-  console.log(data);
 
   return (
     <div className="space-y-4">
@@ -14,7 +13,7 @@ function BookDetailCard() {
             <img
               src={data.bookImageUrl}
               alt="책 커버 사진"
-              className="object-contain"
+              className="w-auto h-full object-contain"
             />
           </div>
 
