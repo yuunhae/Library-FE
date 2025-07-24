@@ -10,11 +10,15 @@ function BookDetailCard() {
       <div className="space-y-4">
         <article className="p-6 space-y-4 border border-[#E6E6E6]">
           <div className="flex justify-center items-center w-full h-80 bg-[#F5F5F5]">
-            <img
-              src={data.bookImageUrl}
-              alt="책 커버 사진"
-              className="w-auto h-full object-contain"
-            />
+            {data.bookImageUrl ? (
+              <img
+                src={data.bookImageUrl}
+                alt="책 커버 사진"
+                className="w-auto h-full object-contain"
+              />
+            ) : (
+              <p className="font-light">{data.title}</p>
+            )}
           </div>
 
           <div>
@@ -59,14 +63,18 @@ function BookDetailCard() {
         </article>
 
         {/* 도서소개 */}
-        <article>
-          <div className="p-6 space-y-3 border border-#E6E6E6 text-left">
-            <p className="text-16 font-bold">도서소개</p>
-            <p className="text-14 tracking-tight font-light">
-              {data.description}
-            </p>
-          </div>
-        </article>
+        {data.description ? (
+          <article>
+            <div className="p-6 space-y-3 border border-#E6E6E6 text-left">
+              <p className="text-16 font-bold">도서소개</p>
+              <p className="text-14 tracking-tight font-light">
+                {data.description}
+              </p>
+            </div>
+          </article>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

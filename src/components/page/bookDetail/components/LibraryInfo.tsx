@@ -8,7 +8,6 @@ function LibraryInfo() {
   const [option, setOption] = useState("목록");
   const [isNationwide, setIsNationWide] = useState(false);
   const [search, setSearch] = useState("");
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
@@ -63,10 +62,6 @@ function LibraryInfo() {
           </button>
         </form>
       </section>
-
-      <p className="text-left text-sm text-[#666] font-light">
-        총 5개의 도서관 중 4개 도서관에서 대출 가능
-      </p>
 
       <section>{option == "목록" ? <LibraryList /> : <LibraryMap />}</section>
     </div>
