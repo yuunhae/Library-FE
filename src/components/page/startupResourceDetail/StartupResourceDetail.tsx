@@ -1,5 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { earlyStartupData } from "../../../mocks/earlyStartupData";
+import Header from "../../common/Header";
 
 const StartupResourceDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -28,29 +29,7 @@ const StartupResourceDetail = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Header */}
-      <header className="bg-white border-b border-gray-200">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <div className="flex items-center">
-            <div className="w-6 h-6 bg-[#3366e5] rounded flex items-center justify-center mr-2">
-              <span className="text-white text-xs font-bold">책</span>
-            </div>
-            <span className="text-xl font-bold text-[#1a1a1a]">스타트업 라이브러리</span>
-          </div>
-          
-          {/* PC Navigation - hidden on mobile */}
-          <nav className="hidden md:flex items-center space-x-8">
-            <button 
-              onClick={() => navigate("/")}
-              className="text-[#666666] hover:text-[#3366e5] font-medium"
-            >
-              도서추천
-            </button>
-            <span className="text-[#666666] font-medium">지원사업</span>
-            <span className="text-[#3366e5] font-medium">창업자료</span>
-          </nav>
-        </div>
-      </header>
+      <Header />
 
       {/* Main Content */}
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
