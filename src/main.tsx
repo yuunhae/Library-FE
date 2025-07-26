@@ -9,6 +9,7 @@ import BookDetail from "./components/page/bookDetail/BookDetail.tsx";
 import BookRecommendation from "./components/page/bookRecommendation/BookRecommendation.tsx";
 import SupportPage from "./components/page/support/SupportPage.tsx";
 import ResourcesPage from "./components/page/resources/ResourcesPage";
+import StartupResourceDetail from "./components/page/startupResourceDetail/StartupResourceDetail.tsx";
 
 const queryClient = new QueryClient();
 
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
   {
     path: "/resources",
     element: <ResourcesPage />,
+  },
+  {
+    path: "/startup-resource/:id",
+    element: <StartupResourceDetail />,
   },
 ]);
 
