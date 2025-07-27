@@ -3,6 +3,7 @@ import { categories } from "../../../../mocks/bookList";
 import PopularBookCard from "./PopularBookCard";
 import { getPopularBooks } from "../../../../api/mainPopularBooks/popularBooks";
 import type { PopularBook } from "../../../../api/mainPopularBooks/popularBooks.type";
+import { Link } from "react-router-dom";
 
 const MainPopularBook = () => {
   const [selected, setSelected] = useState(0);
@@ -32,9 +33,11 @@ const MainPopularBook = () => {
         <h2 className="text-xl sm:text-2xl md:text-3xl font-bold">
           인기 창업 도서
         </h2>
-        <button className="text-[#3578FF] text-sm sm:text-base font-medium">
-          전체보기
-        </button>
+        <Link to="/book-recommendation">
+          <button className="text-[#3578FF] text-sm sm:text-base font-medium">
+            전체보기
+          </button>
+        </Link>
       </div>
       <div className="flex flex-wrap gap-2 mb-6 sm:mb-8 ">
         {categories.map((cat, idx) => (

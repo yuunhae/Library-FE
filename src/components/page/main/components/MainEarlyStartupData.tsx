@@ -14,9 +14,6 @@ const MainEarlyStartupData = () => {
         <h2 className="text-xl sm:text-2xl md:text-3xl font-bold">
           초기 창업 실전 자료
         </h2>
-        <button className="text-[#3578FF] text-sm sm:text-base font-medium">
-          전체보기
-        </button>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
         {earlyStartupData.map((item, idx) => (

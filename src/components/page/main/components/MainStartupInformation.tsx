@@ -2,6 +2,7 @@ import StartupInfoCard from "./StartupInfoCard";
 import { useEffect, useState } from "react";
 import { fetchStartupNews } from "../../../../api/mainStartupNews/startupNews";
 import type { StartupNewsItem } from "../../../../api/mainStartupNews/startupNews.type";
+import { Link } from "react-router-dom";
 
 const MainStartupInformation = () => {
   const [startupNews, setStartupNews] = useState<StartupNewsItem[]>([]);
@@ -53,9 +54,11 @@ const MainStartupInformation = () => {
         <h2 className="text-xl sm:text-2xl md:text-3xl font-bold">
           실시간 창업 정보
         </h2>
-        <button className="text-[#3578FF] text-sm sm:text-base font-medium">
-          전체보기
-        </button>
+        <Link to="/resources">
+          <button className="text-[#3578FF] text-sm sm:text-base font-medium">
+            전체보기
+          </button>
+        </Link>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {loading ? (

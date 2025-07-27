@@ -20,7 +20,7 @@ const PopularBookCard: React.FC<BookCardProps> = ({
 }) => {
   return (
     <div className="bg-white rounded-lg border border-gray-200 p-4 flex flex-col h-full shadow-sm">
-      <div className="flex-1 flex flex-col items-center justify-center m-5">
+      <div className="flex-1 flex flex-col items-center justify-center">
         <div className="w-28 h-36 bg-gray-100 flex items-center justify-center mb-2">
           {cover ? (
             <img
