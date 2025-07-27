@@ -12,7 +12,7 @@ const MainGovernmentFund = () => {
     const fetchFunds = async () => {
       setLoading(true);
       try {
-        const res = await getSupportPrograms("전체", 1, 8); // 8개만 표시
+        const res = await getSupportPrograms("전체", 1, 6);
         setFunds(res.content);
       } catch (e) {
         setFunds([]);
