@@ -28,7 +28,7 @@ export default function SupportPage() {
     setError(null);
     getSupportPrograms(selectedCategory)
       .then((res) => setPrograms(res.content))
-      .catch((e) => setError("데이터를 불러오지 못했습니다."))
+      .catch(() => setError("데이터를 불러오지 못했습니다."))
       .finally(() => setLoading(false));
   }, [selectedCategory]);
 

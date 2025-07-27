@@ -1,4 +1,3 @@
-import React from "react";
 import GovernmentFundCard from "./GovernmentFundCard";
 
 interface Fund {

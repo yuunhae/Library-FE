@@ -1,6 +1,6 @@
 import apiInstance from "../apiInstance";
 import type { SearchBooksRequest } from "./searchBooks.typs";
-import type { Book, SearchBooksResponse, ApiError } from "./ResponseBooks";
+import type { Book, SearchBooksResponse } from "./ResponseBooks";
 
 /**
  * 도서 검색 API 호출 함수
@@ -24,7 +24,7 @@ export const searchBooks = async (
     const queryParams = new URLSearchParams(queryObj).toString();
 
     const url = `/api/books/search?${queryParams}`;
-    console.log("최종 요청 URL:", url);
+    // console.log("최종 요청 URL:", url);
     const response = await apiInstance.get(url);
 
     return response.data;

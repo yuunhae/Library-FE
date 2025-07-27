@@ -1,6 +1,13 @@
 import { earlyStartupData } from "../../../../mocks/earlyStartupData";
+import { useNavigate } from "react-router-dom";
 
 const MainEarlyStartupData = () => {
+  const navigate = useNavigate();
+
+  const handleCardClick = (index: number) => {
+    navigate(`/startup-resource/${index}`);
+  };
+
   return (
     <section className="w-full bg-[#fafafa] min-h-auto p-4 sm:p-6 md:p-8 lg:p-10">
       <div className="flex flex-row justify-between items-center mb-4 sm:mb-6 gap-2">
@@ -12,7 +19,8 @@ const MainEarlyStartupData = () => {
         {earlyStartupData.map((item, idx) => (
           <div
             key={idx}
-            className="bg-white rounded-xl border border-[#e5e7eb] p-5 flex flex-col min-w-0 min-h-[160px] shadow-sm"
+            onClick={() => handleCardClick(idx)}
+            className="bg-white rounded-xl border border-[#e5e7eb] p-5 flex flex-col min-w-0 min-h-[160px] shadow-sm cursor-pointer hover:shadow-md transition-shadow"
           >
             <div className="text-3xl mb-4">{item.icon}</div>
             <div className="text-base sm:text-lg font-bold mb-1">

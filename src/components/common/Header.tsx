@@ -17,6 +17,7 @@ export default function Header() {
 
   const getLinkClass = (path: string) => {
     const baseClass = "text-base font-medium cursor-pointer";
+
     return isActive(path)
       ? `${baseClass} text-[#3366e5]`
       : `${baseClass} text-[#666666] hover:text-[#3366e5]`;
@@ -26,6 +27,7 @@ export default function Header() {
     <header className="flex justify-between items-center h-16 px-6">
       <div className="flex items-center space-x-3">
         <div className="w-6 h-6 bg-[#3366e5] rounded flex items-center justify-center relative">
+
           <span className="text-white text-[10px] font-bold absolute bottom-0 right-0">
             책
           </span>
@@ -36,7 +38,7 @@ export default function Header() {
           </span>
         </Link>
       </div>
-
+      
       {/* PC 메뉴 */}
       <nav className="hidden md:flex items-center space-x-8">
         <Link
@@ -45,6 +47,7 @@ export default function Header() {
         >
           도서추천
         </Link>
+
         <Link to="/support" className={getLinkClass("/support")}>
           지원사업
         </Link>
@@ -65,6 +68,7 @@ export default function Header() {
           <rect y="18" width="24" height="2" rx="1" fill="#3366e5" />
         </svg>
       </button>
+
 
       {/* 모바일 메뉴 오버레이 */}
       {menuOpen && (

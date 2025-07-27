@@ -13,7 +13,7 @@ const MainStartupInformation = () => {
     const getData = async () => {
       try {
         const data = await fetchStartupNews(0, 8);
-        setStartupNews(data.content);
+        setStartupNews(data.content || []);
       } catch (e) {
         setError("데이터를 불러오지 못했습니다.");
       } finally {
@@ -66,7 +66,7 @@ const MainStartupInformation = () => {
         ) : error ? (
           <div>{error}</div>
         ) : (
-          startupNews
+          (startupNews || [])
             .slice(0, 4)
             .map((item, idx) => (
               <StartupInfoCard key={idx} {...mapToCardProps(item)} />
