@@ -24,7 +24,7 @@ export const searchBooks = async (
     const queryParams = new URLSearchParams(queryObj).toString();
 
     const url = `/api/books/search?${queryParams}`;
-    console.log("최종 요청 URL:", url);
+    // console.log("최종 요청 URL:", url);
     const response = await apiInstance.get(url);
 
     return response.data;
