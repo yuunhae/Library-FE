@@ -2,6 +2,7 @@ import GovernmentFundCard from "./GovernmentFundCard";
 import { useEffect, useState } from "react";
 import { getSupportPrograms } from "../../../../api/mainSupport/suport";
 import type { SupportProgram } from "../../../../api/mainSupport/suport.type";
+import { Link } from "react-router-dom";
 
 const MainGovernmentFund = () => {
   const [funds, setFunds] = useState<SupportProgram[]>([]);
@@ -28,9 +29,11 @@ const MainGovernmentFund = () => {
         <h2 className="text-xl sm:text-2xl md:text-3xl font-bold">
           정부지원사업
         </h2>
-        <button className="text-[#3578FF] text-sm sm:text-base font-medium">
-          전체보기
-        </button>
+        <Link to="/support">
+          <button className="text-[#3578FF] text-sm sm:text-base font-medium">
+            전체보기
+          </button>
+        </Link>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8">
         {loading ? (
