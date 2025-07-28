@@ -1,6 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+const formatDate = (dateStr: string) => {
+  // YYYYMMDD 형식 처리
+  if (!dateStr || dateStr.length !== 8) return dateStr;
+  return `${dateStr.slice(0, 4)}-${dateStr.slice(4, 6)}-${dateStr.slice(6, 8)}`;
+};
+
 interface GovernmentFundCardProps {
   title: string;
   content: string;
@@ -71,7 +77,8 @@ const GovernmentFundCard: React.FC<GovernmentFundCardProps> = ({
             <div className="text-sm text-[#222] font-normal flex justify-between">
               접수기간
               <span className="text-[#ef4444] font-medium">
-                {receptionStartDate} ~ {receptionEndDate}
+                {formatDate(receptionStartDate)} ~{" "}
+                {formatDate(receptionEndDate)}
               </span>
             </div>
           </div>
