@@ -48,6 +48,7 @@ const MainGovernmentFund = () => {
               organizingBody={fund.organizationName}
               supportField={fund.supportField}
               receptionEndDate={fund.receptionEndDate}
+              detailUrl={fund.detailUrl}
             />
           ))
         )}

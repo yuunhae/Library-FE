@@ -1,10 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 interface GovernmentFundCardProps {
   title: string;
   organizingBody: string;
   supportField: string;
   receptionEndDate: string;
+  detailUrl: string;
 }
 
 const formatDate = (dateStr: string) => {
@@ -17,13 +19,14 @@ const GovernmentFundCard: React.FC<GovernmentFundCardProps> = ({
   organizingBody,
   supportField,
   receptionEndDate,
+  detailUrl,
 }) => {
   return (
     <div className="bg-white rounded-xl border border-[#e5e7eb] p-4 flex flex-col min-w-0 min-h-[120px] shadow-sm">
       <div className="flex flex-row justify-between items-center mb-2">
         <div className="text-base font-semibold">{title}</div>
       </div>
-      <div className="text-xs bg-[#e8f0fe] text-[#3578FF] px-3 py-1 rounded font-medium w-fit break-words mb-2">
+      <div className="text-xs bg-[#e8f0fe] text-[#3366E5] px-3 py-1 rounded font-medium w-fit break-words mb-2">
         {organizingBody}
       </div>
       <div className="flex flex-col justify-between mt-auto">
@@ -49,9 +52,11 @@ const GovernmentFundCard: React.FC<GovernmentFundCardProps> = ({
           </div>
         </div>
       </div>
-      <button className="w-full mt-3 py-1.5 bg-[#f3f4f6] rounded text-[#666] text-sm font-medium">
-        자세히 보기
-      </button>
+      <Link to={detailUrl}>
+        <button className="w-full mt-3 py-1.5 bg-[#f3f4f6] hover:bg-[#3366E5] hover:text-white rounded text-[#666] text-sm font-medium transition-colors duration-200">
+          자세히 보기
+        </button>
+      </Link>
     </div>
   );
 };

@@ -61,7 +61,7 @@ const GovernmentFundList = ({
   }
 
   return (
-    <div className="grid grid-cols-1 md:mt-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 m-4">
+    <div className="flex flex-wrap md:mt-8 gap-4 m-4 justify-center">
       {" "}
       {filtered.map((fund) => {
         const { status, dday } = getStatusAndDday(fund.receptionEndDate);

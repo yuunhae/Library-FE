@@ -53,8 +53,8 @@ export default function SupportPage() {
         description="현재 진행 중인 정부지원사업을 확인하세요."
       />
       <div className=" my-4 mx-12 flex flex-col sm:flex-colum gap-4 items-start sm:items-left">
-        <div className="flex items-center gap-2">
-          <span className="font-semibold text-base text-[#5F7280]">
+        <div className="flex items-start gap-2">
+          <span className="font-semibold text-base w-[60px] flex-shrink-0 text-[#5F7280]">
             카테고리:
           </span>
           <CategoryFilter
@@ -64,7 +64,7 @@ export default function SupportPage() {
           />
         </div>
         <div className="flex items-center gap-2">
-          <span className="font-semibold text-base text-[#5F7280]">
+          <span className="font-semibold w-18 text-base text-[#5F7280]">
             공고상태:
           </span>
           <CategoryFilter
