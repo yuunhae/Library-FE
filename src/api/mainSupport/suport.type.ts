@@ -12,5 +12,10 @@ export interface SupportProgram {
 
 export interface SupportProgramsResponse {
   content: SupportProgram[];
-  // 필요시 페이지네이션 등 추가
+  totalElements: number;
+  totalPages: number;
+  size: number;
+  number: number;
+  first: boolean;
+  last: boolean;
 }

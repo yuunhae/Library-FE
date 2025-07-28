@@ -17,6 +17,7 @@ interface GovernmentFundListProps {
   funds: Fund[];
   selectedCategory: string;
   selectedStatus: string;
+  isLoadingMore?: boolean;
 }
 
 const getStatusAndDday = (receptionEndDate: string) => {
@@ -48,6 +49,7 @@ const GovernmentFundList = ({
   funds,
   selectedCategory,
   selectedStatus,
+  isLoadingMore = false,
 }: GovernmentFundListProps) => {
   let filtered =
     selectedCategory === "전체"
@@ -61,26 +63,35 @@ const GovernmentFundList = ({
   }
 
   return (
-    <div className="flex flex-wrap md:mt-8 gap-4 m-4 justify-center">
-      {" "}
-      {filtered.map((fund) => {
-        const { status, dday } = getStatusAndDday(fund.receptionEndDate);
-        return (
-          <GovernmentFundCard
-            key={fund.id}
-            title={fund.title}
-            content={fund.content}
-            supportTarget={fund.supportTarget}
-            supportField={fund.supportField}
-            organizationName={fund.organizationName}
-            receptionStartDate={fund.receptionStartDate}
-            receptionEndDate={fund.receptionEndDate}
-            detailUrl={fund.detailUrl}
-            status={status}
-            dday={dday}
-          />
-        );
-      })}
+    <div className="flex flex-col">
+      <div className="flex flex-wrap md:mt-8 gap-4 m-4 justify-center">
+        {filtered.map((fund) => {
+          const { status, dday } = getStatusAndDday(fund.receptionEndDate);
+          return (
+            <GovernmentFundCard
+              key={fund.id}
+              title={fund.title}
+              content={fund.content}
+              supportTarget={fund.supportTarget}
+              supportField={fund.supportField}
+              organizationName={fund.organizationName}
+              receptionStartDate={fund.receptionStartDate}
+              receptionEndDate={fund.receptionEndDate}
+              detailUrl={fund.detailUrl}
+              status={status}
+              dday={dday}
+            />
+          );
+        })}
+      </div>
+      {isLoadingMore && (
+        <div className="text-center w-full py-4">
+          <div className="inline-block animate-spin rounded-full h-6 w-6 border-b-2 border-gray-900"></div>
+          <span className="ml-2 text-gray-500">
+            추가 데이터를 불러오는 중...
+          </span>
+        </div>
+      )}
     </div>
   );
 };

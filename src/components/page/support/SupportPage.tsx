@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Header from "../../common/Header";
 import CategoryFilter from "./components/CategoryFilter";
 import GovernmentFundList from "./components/GovernmentFundList";
 import { TitleAndDescription } from "../../common/TitleAndDescription";
 import { getSupportPrograms } from "../../../api/mainSupport/suport";
 import type { SupportProgram } from "../../../api/mainSupport/suport.type";
+import { useInfiniteScroll } from "../../../hooks/useInfiniteScroll";
 
 const categories = [
   "전체",
@@ -22,12 +23,49 @@ export default function SupportPage() {
   const [programs, setPrograms] = useState<SupportProgram[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+
+  const loadMore = useCallback(async () => {
+    if (isLoadingMore || !hasMore) return;
+
+    setIsLoadingMore(true);
+    try {
+      const response = await getSupportPrograms(selectedCategory, page, 10);
+      const newPrograms = response.content;
+
+      if (newPrograms.length === 0) {
+        setHasMore(false);
+      } else {
+        setPrograms((prev) => [...prev, ...newPrograms]);
+        setPage((prev) => prev + 1);
+      }
+    } catch (error) {
+      console.error("추가 데이터 로딩 실패:", error);
+    } finally {
+      setIsLoadingMore(false);
+    }
+  }, [selectedCategory, page, hasMore, isLoadingMore]);
+
+  const observerRef = useInfiniteScroll({
+    onIntersect: loadMore,
+    enabled: hasMore && !isLoadingMore,
+  });
 
   useEffect(() => {
     setLoading(true);
     setError(null);
-    getSupportPrograms(selectedCategory)
-      .then((res) => setPrograms(res.content))
+    setPrograms([]);
+    setPage(1);
+    setHasMore(true);
+
+    getSupportPrograms(selectedCategory, 1, 10)
+      .then((res) => {
+        setPrograms(res.content);
+        setHasMore(res.content.length === 10);
+        setPage(2);
+      })
       .catch(() => setError("데이터를 불러오지 못했습니다."))
       .finally(() => setLoading(false));
   }, [selectedCategory]);
@@ -79,11 +117,20 @@ export default function SupportPage() {
       ) : error ? (
         <div className="text-center w-full py-10 text-red-500">{error}</div>
       ) : (
-        <GovernmentFundList
-          funds={mappedFunds}
-          selectedCategory={selectedCategory}
-          selectedStatus={selectedStatus}
-        />
+        <>
+          <GovernmentFundList
+            funds={mappedFunds}
+            selectedCategory={selectedCategory}
+            selectedStatus={selectedStatus}
+            isLoadingMore={isLoadingMore}
+          />
+          {hasMore && (
+            <div
+              ref={observerRef}
+              className="w-full h-10 flex items-center justify-center"
+            ></div>
+          )}
+        </>
       )}
     </div>
   );
