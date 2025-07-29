@@ -1,10 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 interface GovernmentFundCardProps {
   title: string;
   organizingBody: string;
   supportField: string;
   receptionEndDate: string;
+  detailUrl: string;
 }
 
 const formatDate = (dateStr: string) => {
@@ -12,41 +14,27 @@ const formatDate = (dateStr: string) => {
   return `${dateStr.slice(0, 4)}-${dateStr.slice(4, 6)}-${dateStr.slice(6, 8)}`;
 };
 
-const splitTitle = (title: string) => {
-  if (title.length <= 18) return [title];
-  const slice = title.slice(0, 18);
-  const lastSpace = slice.lastIndexOf(" ");
-  if (lastSpace === -1) return [title];
-  return [title.slice(0, lastSpace), title.slice(lastSpace + 1)];
-};
-
 const GovernmentFundCard: React.FC<GovernmentFundCardProps> = ({
   title,
   organizingBody,
   supportField,
   receptionEndDate,
+  detailUrl,
 }) => {
   return (
     <div className="bg-white rounded-xl border border-[#e5e7eb] p-4 flex flex-col min-w-0 min-h-[120px] shadow-sm">
       <div className="flex flex-row justify-between items-center mb-2">
-        <div className="text-base font-semibold">
-          {splitTitle(title).map((line, idx) => (
-            <React.Fragment key={idx}>
-              {line}
-              {idx === 0 && splitTitle(title).length > 1 ? <br /> : null}
-            </React.Fragment>
-          ))}
-        </div>
-        <div className="text-xs bg-[#e8f0fe] text-[#3578FF] px-3 py-1 rounded font-medium w-fit break-words mb-2">
-          {organizingBody}
-        </div>
+        <div className="text-base font-semibold">{title}</div>
+      </div>
+      <div className="text-xs bg-[#e8f0fe] text-[#3366E5] px-3 py-1 rounded font-medium w-fit break-words mb-2">
+        {organizingBody}
       </div>
       <div className="flex flex-col justify-between mt-auto">
         <div>
           <div className="text-sm text-[#222] font-normal flex justify-between">
             지원규모
             <span
-              className="text-[#1db954] font-medium truncate max-w-[120px] inline-block align-bottom"
+              className="text-[#1db954] font-medium truncate max-w-[450px] inline-block align-bottom"
               style={{
                 whiteSpace: "nowrap",
                 overflow: "hidden",
@@ -64,9 +52,11 @@ const GovernmentFundCard: React.FC<GovernmentFundCardProps> = ({
           </div>
         </div>
       </div>
-      <button className="w-full mt-3 py-1.5 bg-[#f3f4f6] rounded text-[#666] text-sm font-medium">
-        자세히 보기
-      </button>
+      <Link to={detailUrl}>
+        <button className="w-full mt-3 py-1.5 bg-[#f3f4f6] hover:bg-[#3366E5] hover:text-white rounded text-[#666] text-sm font-medium transition-colors duration-200">
+          자세히 보기
+        </button>
+      </Link>
     </div>
   );
 };
