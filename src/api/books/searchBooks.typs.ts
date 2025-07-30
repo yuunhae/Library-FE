@@ -4,6 +4,7 @@ export interface SearchBooksRequest {
   keyword?: string; // 검색 키워드
   page?: number; // 페이지 번호
   size?: number; // 페이지 크기 몇개씩 보여줄건지
+  sort?: string; // 정렬 옵션
 }
 
 // 응답 타입 import

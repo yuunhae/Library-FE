@@ -1,12 +1,8 @@
 import Header from "../../common/Header";
 import { TitleAndDescription } from "../../common/TitleAndDescription";
 import SearchBar from "./components/SearchBar";
-import { useState } from "react";
-import {
-  categories,
-  searchBooks,
-  sortBooks,
-} from "../../../api/books/searchBooks";
+import { useState, useRef, useEffect, useCallback } from "react";
+import { categories, searchBooks } from "../../../api/books/searchBooks";
 import type {
   Book,
   SearchBooksResponse,
@@ -14,12 +10,16 @@ import type {
 import Tab from "./components/Tab";
 import BookCard from "./components/BookCard";
 import { useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { useInfiniteScroll } from "../../../hooks/useInfiniteScroll";
 
 const BookRecommendation = () => {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const initialSearch = params.get("search") || "";
+
+  // 스크롤 위치 유지를 위한 ref
+  const booksContainerRef = useRef<HTMLDivElement>(null);
+  const isLoadingMoreRef = useRef(false); // 추가 로딩 상태 추적
 
   // 상태 관리
   const [search, setSearch] = useState(initialSearch);
@@ -29,69 +29,157 @@ const BookRecommendation = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [totalCount, setTotalCount] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
 
   // API 호출 함수
   const fetchBooks = async (
     searchKeyword: string,
     categoryIndex: number,
-    page: number = 1
+    sortType: string,
+    page: number = 1,
+    append: boolean = false
   ) => {
-    //console.log("fetchBooks 파라미터", searchKeyword, categoryIndex, page);
-    //console.log("API URL:", import.meta.env.VITE_API_URL);
+    console.log("fetchBooks 호출:", {
+      searchKeyword,
+      categoryIndex,
+      sortType,
+      page,
+      append,
+    });
+
     setLoading(true);
     setError(null);
+
+    // 추가 로딩 시작 시 현재 스크롤 위치 저장
+    let savedScrollPosition = 0;
+    if (append) {
+      isLoadingMoreRef.current = true;
+      savedScrollPosition = window.pageYOffset;
+    }
 
     const params = {
       ...(searchKeyword ? { keyword: searchKeyword } : {}),
       category: categoryIndex === 0 ? "전체" : categories[categoryIndex],
+      sort: sortType,
       page: page,
-      size: 100,
+      size: 50,
     };
-    //console.log("API 요청 파라미터:", params);
 
     try {
       const response: SearchBooksResponse = await searchBooks(params);
+      console.log("API 응답:", {
+        contentLength: response.content.length,
+        totalCount: response.totalCount,
+        hasNext: response.hasNext,
+      });
 
-      //console.log("API 응답 데이터:", response); // 추가
+      if (append) {
+        setBooks((prev) => {
+          const newBooks = [...prev, ...response.content];
+          console.log("추가 로드 후 총 책 개수:", newBooks.length);
 
-      // 정렬 적용
-      const sortedBooks = sortBooks(response.content, sort);
+          // DOM 업데이트 후 스크롤 위치 복원
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              window.scrollTo(0, savedScrollPosition);
+              isLoadingMoreRef.current = false;
+            });
+          });
 
-      setBooks(sortedBooks);
-      //console.log(books);
+          return newBooks;
+        });
+      } else {
+        setBooks(response.content);
+        console.log("새로 로드된 책 개수:", response.content.length);
+      }
 
-      setTotalCount(response.totalCount);
+      setTotalCount(response.totalCount || 0);
+
+      // hasMore 계산
+      const shouldHaveMore =
+        response.hasNext !== undefined
+          ? response.hasNext
+          : response.content.length === 16;
+
+      console.log("hasMore 계산:", {
+        responseContentLength: response.content.length,
+        totalCount: response.totalCount,
+        hasNext: response.hasNext,
+        shouldHaveMore,
+      });
+      setHasMore(shouldHaveMore);
     } catch (err: any) {
       console.error("도서 검색 에러:", err);
       setError(err.message || "도서를 불러오는데 실패했습니다.");
-      setBooks([]);
+      if (!append) {
+        setBooks([]);
+      }
+      isLoadingMoreRef.current = false;
     } finally {
       setLoading(false);
     }
   };
+
+  // 무한 스크롤 핸들러 - useCallback으로 메모이제이션
+  const handleLoadMore = useCallback(() => {
+    console.log("handleLoadMore 호출:", {
+      loading,
+      hasMore,
+      currentPage,
+      booksLength: books.length,
+      totalCount,
+      isLoadingMore: isLoadingMoreRef.current,
+    });
+
+    if (!loading && hasMore && !isLoadingMoreRef.current) {
+      const nextPage = currentPage + 1;
+      console.log("다음 페이지 로드:", nextPage);
+      setCurrentPage(nextPage);
+      fetchBooks(search, selectedCategory, sort, nextPage, true);
+    }
+  }, [
+    loading,
+    hasMore,
+    currentPage,
+    books.length,
+    totalCount,
+    search,
+    selectedCategory,
+    sort,
+  ]);
+
+  // 무한 스크롤 훅 사용
+  const observerRef = useInfiniteScroll({
+    onIntersect: handleLoadMore,
+    enabled: !loading && hasMore && !isLoadingMoreRef.current,
+  });
+
   // 초기 로드 및 URL 쿼리스트링 변경 시
   useEffect(() => {
     setSearch(initialSearch);
-    fetchBooks(initialSearch, selectedCategory, 1);
+    setCurrentPage(1);
+    setHasMore(true);
+    isLoadingMoreRef.current = false;
+    fetchBooks(initialSearch, selectedCategory, sort, 1, false);
   }, [initialSearch]);
 
-  // 카테고리 변경 시
-  useEffect(() => {
-    fetchBooks(search, selectedCategory, 1);
-  }, [search, selectedCategory]);
-
-  // 정렬 변경 시 (API 재호출 없이 클라이언트에서 정렬)
-  useEffect(() => {
-    if (books.length > 0) {
-      const sortedBooks = sortBooks(books, sort);
-      setBooks([...sortedBooks]); // 배열 참조 변경으로 리렌더링 트리거
-    }
-  }, [sort]);
-
-  // 검색 실행
+  // 검색 실행 (검색 버튼 클릭 시)
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    // setSearch가 이미 최신값을 반영하므로 fetchBooks 호출 필요 없음
+    setCurrentPage(1);
+    setHasMore(true);
+    isLoadingMoreRef.current = false;
+    fetchBooks(search, selectedCategory, sort, 1, false);
+  };
+
+  // 카테고리 선택 시 검색 실행
+  const handleCategorySelect = (idx: number) => {
+    setSelectedCategory(idx);
+    setCurrentPage(1);
+    setHasMore(true);
+    isLoadingMoreRef.current = false;
+    fetchBooks(search, idx, sort, 1, false);
   };
 
   return (
@@ -106,7 +194,6 @@ const BookRecommendation = () => {
         value={search}
         onChange={(e) => {
           setSearch(e.target.value);
-          fetchBooks(e.target.value, selectedCategory, 1);
         }}
         onSearch={handleSearch}
         sort={sort}
@@ -116,14 +203,11 @@ const BookRecommendation = () => {
       <Tab
         tabs={categories}
         selected={selectedCategory}
-        onSelect={(idx) => {
-          setSelectedCategory(idx);
-          fetchBooks(search, idx, 1);
-        }}
+        onSelect={handleCategorySelect}
       />
 
       {/* 로딩 상태 */}
-      {loading && (
+      {loading && books.length === 0 && (
         <div className="flex justify-center items-center h-64">
           <div className="text-lg">도서를 불러오는 중...</div>
         </div>
@@ -146,13 +230,13 @@ const BookRecommendation = () => {
       {/* 도서 목록 */}
       {!loading && !error && books.length > 0 && (
         <>
-          <div className="m-5 text-sm text-gray-600">
-            총 {totalCount}권의 도서가 있습니다.
-          </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 m-5">
-            {books.map((book) => (
+          <div
+            ref={booksContainerRef}
+            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 m-5"
+          >
+            {books.map((book, index) => (
               <BookCard
-                key={book.id}
+                key={`${book.isbn13 || book.id}-${index}`} // isbn13을 우선 사용하고 id를 fallback으로
                 bookImageUrl={book.bookImageUrl || ""}
                 title={book.title}
                 author={book.author}
@@ -163,6 +247,24 @@ const BookRecommendation = () => {
                 isbn13={book.isbn13}
               />
             ))}
+          </div>
+
+          {/* 무한 스크롤 관찰자 */}
+          <div
+            ref={observerRef}
+            className="flex justify-center items-center h-32 bg-gray-50"
+          >
+            {loading && (
+              <div className="text-lg">추가 도서를 불러오는 중...</div>
+            )}
+            {!loading && hasMore && (
+              <div className="text-gray-500">
+                스크롤하여 더 많은 도서를 불러오세요
+              </div>
+            )}
+            {!loading && !hasMore && books.length > 0 && (
+              <div className="text-gray-500">모든 도서를 불러왔습니다</div>
+            )}
           </div>
         </>
       )}
