@@ -1,7 +1,9 @@
 import Header from "../../common/Header";
 import { LoadingSpinner } from "../../common/LoadingSpinner";
-import BookDetailCard from "./components/BookDetailCard";
-import LibraryInfo from "./components/LibraryInfo";
+
+import BookDetailsCard from "./components/BookDetailsCard";
+import LibraryDetailsCard from "./components/LibraryDetailsCard";
+
 import { Suspense } from "react";
 
 function BookDetail() {
@@ -22,11 +24,11 @@ function BookDetail() {
 
           <div className=" grid grid-cols-1 lg:grid-cols-[1fr_2.5fr] gap-8">
             <section className="space-y-4">
-              <BookDetailCard />
+              <BookDetailsCard />
             </section>
 
             <section className="p-6 space-y-4  border border-border-color">
-              <LibraryInfo />
+              <LibraryDetailsCard />
             </section>
           </div>
         </main>
