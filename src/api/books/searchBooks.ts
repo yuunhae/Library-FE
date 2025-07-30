@@ -1,7 +1,6 @@
 import apiInstance from "../apiInstance";
 import type { SearchBooksRequest } from "./searchBooks.typs";
 import type { Book, SearchBooksResponse } from "./ResponseBooks";
-import { bookList } from "../../mocks/bookList";
 
 /**
  * 도서 검색 API 호출 함수
