@@ -4,5 +4,5 @@
  */
 export const PATHS = {
   MAIN: '/',
-  BOOK_DETAIL: '/bookdetail',
+  BOOK_DETAIL: '/bookdetail/:isbn',
 } as const;

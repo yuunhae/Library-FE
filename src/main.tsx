@@ -24,7 +24,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/bookdetail",
+    path: "/bookdetail/:isbn",
     element: <BookDetail />,
     children: [
       {

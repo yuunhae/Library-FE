@@ -1,5 +1,5 @@
-import { LibraryCard } from "./components/libraryCard";
 import type { LibraryDataProps } from "../../../../../hooks/useCalulateDistance";
+import { LibraryCard } from "./components/libraryCard";
 //도서관 정보
 
 type LibraryListProps = {
@@ -14,6 +14,7 @@ function LibraryList({ LibraryData, error }: LibraryListProps) {
           {LibraryData.map((lib) => {
             return (
               <LibraryCard
+                key={lib.libCode}
                 libCode={lib.libCode}
                 libName={lib.libName}
                 address={lib.address}

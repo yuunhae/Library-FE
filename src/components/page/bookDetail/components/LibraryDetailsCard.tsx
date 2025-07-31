@@ -3,11 +3,13 @@ import LibraryList from "./libraryDetailCard/Librarylist";
 import LibraryMap from "./libraryDetailCard/LibraryMap";
 import { useFetchLibListQuery } from "../../../../api/bookDetail/libraryList/useFetchLibList";
 import useCalulateDistance from "../../../../hooks/useCalulateDistance";
-import { useLocation } from "react-router-dom";
 
-function LibraryInfo() {
-  const location = useLocation();
-  const { data } = useFetchLibListQuery(location.state.isbn13);
+type LibraryInfoProps = {
+  isbn: string;
+};
+
+function LibraryInfo({ isbn }: LibraryInfoProps) {
+  const { data } = useFetchLibListQuery(isbn);
   const { LibraryData, error } = useCalulateDistance(data);
   const searchOptions = ["목록", "지도"];
 
@@ -27,7 +29,7 @@ function LibraryInfo() {
   return (
     <div className="space-y-4">
       <section>
-        <div className="flex flex-row justify-between">
+        <div className="flex flex-row justify-between ">
           <p className="text-left text-lg  font-bold">도서관 위치 </p>
           <div className="space-x-2">
             {searchOptions.map((opt) => {
@@ -55,7 +57,7 @@ function LibraryInfo() {
             value={search}
             onChange={handleInputChange}
             placeholder="도서관명 또는 지역을 검색하세요"
-            className="w-full xs:w-[80%] h-full border  border-border-color px-3 text-sm placeholder-gray-400 xs:placeholder:text-xs font-light"
+            className="rounded w-full xs:w-[80%] h-full border  border-border-color px-3 text-sm placeholder-gray-400 xs:placeholder:text-xs font-light"
           />
         </form>
       </section>
@@ -69,7 +71,7 @@ function LibraryInfo() {
         {LibraryData && option == "목록" ? (
           <LibraryList LibraryData={LibraryData} error={error} />
         ) : (
-          <LibraryMap />
+          <LibraryMap isbn={isbn} />
         )}
       </section>
     </div>
