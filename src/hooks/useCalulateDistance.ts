@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { getDistanceFromLatLonInKm } from "../utils/getDistanceFromLatLonInKm";
-type libData = {
+export type LibraryDataProps = {
   libCode: string;
   libName: string;
   address: string;
@@ -11,43 +11,43 @@ type libData = {
   longitude: number;
   isAvailable: boolean;
   returnDate: string;
+  distance?: number;
 };
 
 type userLatLong = {
   latitude: number;
   longitude: number;
 };
-function useCalulateDistance(data: libData[]) {
+
+function useCalulateDistance(data: LibraryDataProps[]) {
   const [userLocation, setUserLocation] = useState<userLatLong>();
   const [error, setError] = useState<GeolocationPositionError>();
 
- //사용자 위치 가져오기
+  //사용자 위치 가져오기
   useEffect(() => {
     if (!navigator.geolocation) {
-      console.log("fjs");
-      
       return;
-      
     }
     navigator.geolocation.getCurrentPosition(
-      
       (position) => {
         setUserLocation({
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
-        });        
+        });
       },
       (err) => {
-        setError(err); //에러코드 1번만 핸들링중
+        setError(err); //에러코드 1번만 핸들링중 : 사용자 위치 권한 거부
         console.error(err);
       }
     );
-  }, []);  
-  
+  }, []);
 
-  //계산하고 거리 정보랑 기존 도서관 데이터랑 합치기
-  const libWithDistance = useMemo(() => {
-    if (!userLocation) return [];
+  //계산하고 거리 정보추가한 새로운 배열 생성
+  const LibraryData = useMemo(() => {
+    if (error || !userLocation){
+       return data;
+    }
+
     return data
       .map((lib) => ({
         ...lib,
@@ -58,13 +58,11 @@ function useCalulateDistance(data: libData[]) {
           long2: lib.longitude,
         }),
       }))
-
       .sort((a, b) => a.distance - b.distance);
-  }, [data, userLocation]);
-  
+  }, [error, data, userLocation]);
 
   return {
-    libWithDistance,
+    LibraryData,
     userLocation,
     error,
   };

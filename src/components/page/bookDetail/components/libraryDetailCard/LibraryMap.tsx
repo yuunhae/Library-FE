@@ -1,28 +1,29 @@
 import { useEffect, useRef, useState } from "react";
 import { useFetchLibListQuery } from "../../../../../api/bookDetail/libraryList/useFetchLibList";
-import { useLocation } from "react-router-dom";
 import useCalulateDistance from "../../../../../hooks/useCalulateDistance";
 import LocationSvg from "../../../../../asset/current-location-svgrepo-com.svg";
-
-function LibraryMap() {
-  const location = useLocation();
-  const { data } = useFetchLibListQuery(location.state.isbn13);
+type LibraryMapProps = {
+  isbn: string;
+};
+function LibraryMap({ isbn }: LibraryMapProps) {
+  const { data } = useFetchLibListQuery(isbn);
   const { userLocation, error } = useCalulateDistance(data);
+
   const [isKakaoMapLoaded, setIsKakaoMapLoaded] = useState(false);
   const [kakaoMap, setKakaoMap] = useState<kakao.maps.Map>();
-  const [currentLocMarker, setCurrentLocMarker] =
+  const [userCurrentLocMarker, setUserCurrentLocMarker] =
     useState<kakao.maps.Marker | null>(null);
   const mapContainer = useRef<HTMLDivElement>(null);
 
   const showCurrentLocation = (kakaoMap: kakao.maps.Map) => {
-    if (currentLocMarker) {
-      currentLocMarker.setMap(null);
-      setCurrentLocMarker(null);
+    if (userCurrentLocMarker) {
+      userCurrentLocMarker.setMap(null);
+      setUserCurrentLocMarker(null);
     }
 
     if (!isKakaoMapLoaded || !userLocation) return;
 
-    if (userLocation && isKakaoMapLoaded && !currentLocMarker) {
+    if (userLocation && isKakaoMapLoaded && !userCurrentLocMarker) {
       const marker = new window.kakao.maps.Marker({
         map: kakaoMap,
         position: new window.kakao.maps.LatLng(
@@ -32,7 +33,7 @@ function LibraryMap() {
       });
 
       marker.setMap(kakaoMap);
-      setCurrentLocMarker(marker);
+      setUserCurrentLocMarker(marker);
       kakaoMap.setCenter(
         new window.kakao.maps.LatLng(
           userLocation.latitude,

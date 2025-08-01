@@ -53,8 +53,7 @@ const BookCard: React.FC<BookCardProps> = ({
       <div className="flex flex-row justify-between items-center mt-auto">
         <Link
           className="w-full h-8 px-4 py-1 bg-[#3578FF] text-white rounded-md text-xs font-medium hover:bg-[#2453b3] transition-colors"
-          to={"/bookdetail"}
-          state={{ isbn13: isbn13 }}
+          to={`/bookdetail/${isbn13}`}
         >
           상세보기
         </Link>

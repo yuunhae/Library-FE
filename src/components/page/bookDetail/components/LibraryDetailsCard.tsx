@@ -1,12 +1,19 @@
 import React, { useState } from "react";
-import LibraryList from "./libraryInfo/Librarylist";
-import LibraryMap from "./libraryInfo/LibraryMap";
+import LibraryList from "./libraryDetailCard/Librarylist";
+import LibraryMap from "./libraryDetailCard/LibraryMap";
+import { useFetchLibListQuery } from "../../../../api/bookDetail/libraryList/useFetchLibList";
+import useCalulateDistance from "../../../../hooks/useCalulateDistance";
 
-function LibraryInfo() {
+type LibraryInfoProps = {
+  isbn: string;
+};
+
+function LibraryInfo({ isbn }: LibraryInfoProps) {
+  const { data } = useFetchLibListQuery(isbn);
+  const { LibraryData, error } = useCalulateDistance(data);
   const searchOptions = ["목록", "지도"];
 
   const [option, setOption] = useState("목록");
-  const [isNationwide, setIsNationWide] = useState(false);
   const [search, setSearch] = useState("");
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
@@ -17,10 +24,12 @@ function LibraryInfo() {
     // 검색 로직 추가
   };
 
+  const availableCount = LibraryData.filter((lib) => lib.isAvailable).length;
+
   return (
     <div className="space-y-4">
       <section>
-        <div className="flex flex-row justify-between">
+        <div className="flex flex-row justify-between ">
           <p className="text-left text-lg  font-bold">도서관 위치 </p>
           <div className="space-x-2">
             {searchOptions.map((opt) => {
@@ -48,22 +57,23 @@ function LibraryInfo() {
             value={search}
             onChange={handleInputChange}
             placeholder="도서관명 또는 지역을 검색하세요"
-            className="w-[93%] xs:w-[80%] h-full border  border-border-color px-3 text-sm placeholder-gray-400 xs:placeholder:text-xs font-light"
+            className="rounded w-full xs:w-[80%] h-full border  border-border-color px-3 text-sm placeholder-gray-400 xs:placeholder:text-xs font-light"
           />
-          <button
-            onClick={(event) =>
-              event.detail === 0
-                ? event.preventDefault()
-                : setIsNationWide((prev) => !prev)
-            }
-            className={`w-[7%] xs:w-[20%]  h-full text-sm border border-solid font-light border-border-color hover:bg-point-color  hover:text-white transition-colors ${isNationwide ? "bg-point-color text-white" : "bg-white"}`}
-          >
-            전국
-          </button>
         </form>
       </section>
 
-      <section>{option == "목록" ? <LibraryList /> : <LibraryMap />}</section>
+      <p className="text-left text-sm text-[#666] font-light">
+        총 {LibraryData.length}개의 도서관 중 {availableCount}개 도서관에서 대출
+        가능
+      </p>
+
+      <section>
+        {LibraryData && option == "목록" ? (
+          <LibraryList LibraryData={LibraryData} error={error} />
+        ) : (
+          <LibraryMap isbn={isbn} />
+        )}
+      </section>
     </div>
   );
 }
