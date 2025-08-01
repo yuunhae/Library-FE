@@ -19,7 +19,8 @@ const BookRecommendation = () => {
 
   // 스크롤 위치 유지를 위한 ref
   const booksContainerRef = useRef<HTMLDivElement>(null);
-  const isLoadingMoreRef = useRef(false); // 추가 로딩 상태 추적
+  const isLoadingMoreRef = useRef(false);
+  const lastScrollTopRef = useRef(0); // 마지막 스크롤 위치 저장
 
   // 상태 관리
   const [search, setSearch] = useState(initialSearch);
@@ -52,10 +53,10 @@ const BookRecommendation = () => {
     setError(null);
 
     // 추가 로딩 시작 시 현재 스크롤 위치 저장
-    let savedScrollPosition = 0;
     if (append) {
       isLoadingMoreRef.current = true;
-      savedScrollPosition = window.pageYOffset;
+      lastScrollTopRef.current =
+        window.pageYOffset || document.documentElement.scrollTop;
     }
 
     const params = {
@@ -78,15 +79,6 @@ const BookRecommendation = () => {
         setBooks((prev) => {
           const newBooks = [...prev, ...response.content];
           console.log("추가 로드 후 총 책 개수:", newBooks.length);
-
-          // DOM 업데이트 후 스크롤 위치 복원
-          requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-              window.scrollTo(0, savedScrollPosition);
-              isLoadingMoreRef.current = false;
-            });
-          });
-
           return newBooks;
         });
       } else {
@@ -100,7 +92,7 @@ const BookRecommendation = () => {
       const shouldHaveMore =
         response.hasNext !== undefined
           ? response.hasNext
-          : response.content.length === 16;
+          : response.content.length === 50; // size와 일치하도록 수정
 
       console.log("hasMore 계산:", {
         responseContentLength: response.content.length,
@@ -115,44 +107,72 @@ const BookRecommendation = () => {
       if (!append) {
         setBooks([]);
       }
-      isLoadingMoreRef.current = false;
     } finally {
       setLoading(false);
+      if (append) {
+        isLoadingMoreRef.current = false;
+      }
     }
   };
 
-  // 무한 스크롤 핸들러 - useCallback으로 메모이제이션
-  const handleLoadMore = useCallback(() => {
-    console.log("handleLoadMore 호출:", {
-      loading,
-      hasMore,
-      currentPage,
-      booksLength: books.length,
-      totalCount,
-      isLoadingMore: isLoadingMoreRef.current,
-    });
+  // 스크롤 위치 복원을 위한 useEffect
+  useEffect(() => {
+    if (!isLoadingMoreRef.current || lastScrollTopRef.current === 0) return;
 
-    if (!loading && hasMore && !isLoadingMoreRef.current) {
-      const nextPage = currentPage + 1;
-      console.log("다음 페이지 로드:", nextPage);
-      setCurrentPage(nextPage);
-      fetchBooks(search, selectedCategory, sort, nextPage, true);
-    }
-  }, [
-    loading,
-    hasMore,
-    currentPage,
-    books.length,
-    totalCount,
-    search,
-    selectedCategory,
-    sort,
-  ]);
+    // DOM이 업데이트될 때까지 여러 번 시도
+    const restoreScrollPosition = () => {
+      const targetPosition = lastScrollTopRef.current;
+      const currentPosition =
+        window.pageYOffset || document.documentElement.scrollTop;
+
+      // 현재 위치가 저장된 위치와 많이 다르면 복원
+      if (Math.abs(currentPosition - targetPosition) > 50) {
+        window.scrollTo({
+          top: targetPosition,
+          behavior: "auto", // 즉시 이동
+        });
+      }
+    };
+
+    // 여러 번 시도하여 확실하게 위치 복원
+    const timeouts = [0, 16, 50, 100, 200];
+    timeouts.forEach((delay) => {
+      setTimeout(restoreScrollPosition, delay);
+    });
+  }, [books.length]); // books 길이가 변경될 때마다 실행
+
+  // 무한 스크롤 핸들러 - useRef로 안정화
+  const handleLoadMoreRef = useRef<(() => void) | null>(null);
+
+  // handleLoadMore 함수를 ref에 저장하여 안정화
+  useEffect(() => {
+    handleLoadMoreRef.current = () => {
+      console.log("handleLoadMore 호출:", {
+        loading,
+        hasMore,
+        currentPage,
+        booksLength: books.length,
+        isLoadingMore: isLoadingMoreRef.current,
+      });
+
+      if (!loading && hasMore && !isLoadingMoreRef.current) {
+        const nextPage = currentPage + 1;
+        console.log("다음 페이지 로드:", nextPage);
+        setCurrentPage(nextPage);
+        fetchBooks(search, selectedCategory, sort, nextPage, true);
+      }
+    };
+  }, [loading, hasMore, currentPage, search, selectedCategory, sort]);
 
   // 무한 스크롤 훅 사용
   const observerRef = useInfiniteScroll({
-    onIntersect: handleLoadMore,
-    enabled: !loading && hasMore && !isLoadingMoreRef.current,
+    onIntersect: () => {
+      if (handleLoadMoreRef.current) {
+        handleLoadMoreRef.current();
+      }
+    },
+    enabled:
+      !loading && hasMore && !isLoadingMoreRef.current && books.length > 0,
   });
 
   // 초기 로드 및 URL 쿼리스트링 변경 시
@@ -161,6 +181,7 @@ const BookRecommendation = () => {
     setCurrentPage(1);
     setHasMore(true);
     isLoadingMoreRef.current = false;
+    lastScrollTopRef.current = 0; // 초기화
     fetchBooks(initialSearch, selectedCategory, sort, 1, false);
   }, [initialSearch]);
 
@@ -170,6 +191,7 @@ const BookRecommendation = () => {
     setCurrentPage(1);
     setHasMore(true);
     isLoadingMoreRef.current = false;
+    lastScrollTopRef.current = 0; // 새로운 검색 시 초기화
     fetchBooks(search, selectedCategory, sort, 1, false);
   };
 
@@ -179,7 +201,18 @@ const BookRecommendation = () => {
     setCurrentPage(1);
     setHasMore(true);
     isLoadingMoreRef.current = false;
+    lastScrollTopRef.current = 0; // 새로운 카테고리 선택 시 초기화
     fetchBooks(search, idx, sort, 1, false);
+  };
+
+  // 정렬 옵션 변경 핸들러 추가
+  const handleSortChange = (newSort: string) => {
+    setSort(newSort);
+    setCurrentPage(1);
+    setHasMore(true);
+    isLoadingMoreRef.current = false;
+    lastScrollTopRef.current = 0; // 새로운 정렬 시 초기화
+    fetchBooks(search, selectedCategory, newSort, 1, false);
   };
 
   return (
@@ -197,7 +230,7 @@ const BookRecommendation = () => {
         }}
         onSearch={handleSearch}
         sort={sort}
-        onSortChange={setSort}
+        onSortChange={handleSortChange} // 개선된 핸들러 사용
       />
 
       <Tab
@@ -232,11 +265,11 @@ const BookRecommendation = () => {
         <>
           <div
             ref={booksContainerRef}
-            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 m-5"
+            className="flex flex-wrap gap-4 m-5 justify-center items-center"
           >
             {books.map((book, index) => (
               <BookCard
-                key={`${book.isbn13 || book.id}-${index}`} // isbn13을 우선 사용하고 id를 fallback으로
+                key={`${book.isbn13 || book.id}-${index}`}
                 bookImageUrl={book.bookImageUrl || ""}
                 title={book.title}
                 author={book.author}
