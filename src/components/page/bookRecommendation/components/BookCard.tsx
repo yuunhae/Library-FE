@@ -37,8 +37,10 @@ const BookCard: React.FC<BookCardProps> = ({
             <span className="text-gray-400 text-sm">No Image</span>
           )}
         </div>
-        <div className="text-base font-bold text-left mb-1">{title}</div>
-        <div className="text-xs text-gray-500 text-left mb-1">
+        <div className="text-base font-bold text-left mb-1 line-clamp-2">
+          {title}
+        </div>
+        <div className="text-xs text-gray-500 text-left mb-1 line-clamp-2">
           {author} · {publisher}, {publicationYear}
         </div>
       </div>
