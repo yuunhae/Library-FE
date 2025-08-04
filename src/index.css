@@ -31,7 +31,7 @@
 
   * {
     box-sizing: border-box;
-     -webkit-font-smoothing: antialiased;
+    -webkit-font-smoothing: antialiased;
   }
 
   button {
@@ -96,5 +96,14 @@
 
   .text-16 {
     @apply text-[#66666] text-base;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
   }
 }

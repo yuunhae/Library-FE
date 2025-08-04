@@ -20,6 +20,9 @@ export const searchBooks = async (
     if (params.category !== undefined) {
       queryObj.category = params.category;
     }
+    if (params.sort !== undefined) {
+      queryObj.sort = params.sort;
+    }
 
     const queryParams = new URLSearchParams(queryObj).toString();
 

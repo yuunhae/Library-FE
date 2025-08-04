@@ -24,7 +24,7 @@ const BookCard: React.FC<BookCardProps> = ({
   // onDetail,
 }) => {
   return (
-    <div className="bg-white rounded-lg border border-gray-200 p-4 flex flex-col h-full shadow-sm">
+    <div className="bg-white rounded-lg border border-gray-200 p-4 flex flex-col w-[223px] h-[360px] shadow-sm">
       <div className="flex-1 flex flex-col items-center justify-center">
         <div className="w-28 h-36 bg-gray-100 flex items-center justify-center mb-2">
           {bookImageUrl ? (
@@ -37,8 +37,10 @@ const BookCard: React.FC<BookCardProps> = ({
             <span className="text-gray-400 text-sm">No Image</span>
           )}
         </div>
-        <div className="text-base font-bold text-center mb-1">{title}</div>
-        <div className="text-xs text-gray-500 text-center mb-1">
+        <div className="text-base font-bold text-left mb-1 line-clamp-2">
+          {title}
+        </div>
+        <div className="text-xs text-gray-500 text-left mb-1 line-clamp-2">
           {author} · {publisher}, {publicationYear}
         </div>
       </div>
@@ -50,9 +52,9 @@ const BookCard: React.FC<BookCardProps> = ({
         <span>대출</span>
         <span className="text-blue-600">{loanCount.toLocaleString()}회</span>
       </div>
-      <div className="flex flex-row justify-between items-center mt-auto">
+      <div className="flex flex-row justify-center items-center mt-auto">
         <Link
-          className="w-full h-8 px-4 py-1 bg-[#3578FF] text-white rounded-md text-xs font-medium hover:bg-[#2453b3] transition-colors"
+          className="flex flex-row justify-center items-center w-full h-8 px-4 py-1 bg-[#3578FF] text-white rounded-md text-xs font-medium hover:bg-[#2453b3] transition-colors"
           to={`/bookdetail/${isbn13}`}
         >
           상세보기

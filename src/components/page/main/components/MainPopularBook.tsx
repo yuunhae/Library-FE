@@ -28,7 +28,7 @@ const MainPopularBook = () => {
   }, [selected]);
 
   return (
-    <section className="w-full bg-[#fafafa] min-h-auto p-4 sm:p-6 md:p-8 lg:p-10">
+    <section className="w-full bg-[#fafafa] h-[500px] p-4 sm:p-6 md:p-8 lg:p-10">
       <div className="flex flex-row justify-between items-center mb-4 sm:mb-6 gap-2">
         <h2 className="text-xl sm:text-2xl md:text-3xl font-bold">
           인기 창업 도서
@@ -54,25 +54,31 @@ const MainPopularBook = () => {
           </button>
         ))}
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 sm:gap-6">
-        {loading ? (
-          <div className="col-span-full text-center">로딩 중...</div>
-        ) : books.length === 0 ? (
-          <div className="col-span-full text-center">도서가 없습니다.</div>
-        ) : (
-          books.map((book, idx) => (
-            <PopularBookCard
-              key={idx}
-              cover={book.bookImageUrl}
-              title={book.title}
-              author={book.author}
-              publisher={book.publisher}
-              year={Number(book.publicationYear)}
-              loanCount={book.loanCount}
-              onDetail={() => {}}
-            />
-          ))
-        )}
+      <div className="overflow-x-auto h-[350px] scrollbar-hide">
+        <div className="flex gap-4 sm:gap-6 min-w-max">
+          {loading ? (
+            <div className="flex items-center justify-center w-full h-32">
+              로딩 중...
+            </div>
+          ) : books.length === 0 ? (
+            <div className="flex items-center justify-center w-full h-32">
+              도서가 없습니다.
+            </div>
+          ) : (
+            books.map((book, idx) => (
+              <PopularBookCard
+                key={idx}
+                cover={book.bookImageUrl}
+                title={book.title}
+                author={book.author}
+                publisher={book.publisher}
+                year={Number(book.publicationYear)}
+                loanCount={book.loanCount}
+                onDetail={() => {}}
+              />
+            ))
+          )}
+        </div>
       </div>
     </section>
   );
