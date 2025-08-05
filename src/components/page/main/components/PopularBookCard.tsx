@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 interface BookCardProps {
   cover: string;
@@ -8,6 +9,7 @@ interface BookCardProps {
   year: number;
   loanCount: number;
   onDetail?: () => void;
+  isbn: string;
 }
 
 const PopularBookCard: React.FC<BookCardProps> = ({
@@ -17,9 +19,13 @@ const PopularBookCard: React.FC<BookCardProps> = ({
   publisher,
   year,
   loanCount,
+  isbn,
 }) => {
   return (
-    <div className="bg-white rounded-lg border border-gray-200 p-4 flex flex-col w-[200px] h-auto shadow-sm">
+    <Link
+      to={`bookdetail/${isbn}`}
+      className="bg-white rounded-lg border border-gray-200 p-4 flex flex-col w-[200px] h-auto shadow-sm"
+    >
       <div className="flex-1 flex flex-col items-center justify-center">
         <div className="w-28 h-36 bg-gray-100 flex items-center justify-center mb-2">
           {cover ? (
@@ -45,7 +51,7 @@ const PopularBookCard: React.FC<BookCardProps> = ({
         </span>
       </div>
       <div className="flex flex-row justify-between items-center mt-auto"></div>
-    </div>
+    </Link>
   );
 };
 
