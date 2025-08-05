@@ -4,7 +4,7 @@ export interface PopularBook {
   author: string;
   publisher: string;
   publicationYear: string;
-  isbn: string;
+  isbn13: string;
   loanCount: number;
   bookImageUrl: string;
   authorPublisherMeta: string;

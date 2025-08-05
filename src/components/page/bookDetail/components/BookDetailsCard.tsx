@@ -30,7 +30,7 @@ function BookDetailCard({ isbn }: BookDetailsCardProps) {
                 className="w-auto h-full object-contain"
               />
             ) : (
-              <p className="font-light">{data.title}</p>
+              <p className="font-light">No Image</p>
             )}
           </section>
 
