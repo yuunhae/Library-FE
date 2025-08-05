@@ -3,7 +3,6 @@ import { useFetchLibListQuery } from "../../../../../api/bookDetail/libraryList/
 import useCalulateDistance from "../../../../../hooks/useCalulateDistance";
 import LocationSvg from "../../../../../asset/current-location-svgrepo-com.svg";
 import type { LibraryDataProps } from "../../../../../hooks/useCalulateDistance";
-// import type { UserLatLong } from "../../../../../hooks/useCalulateDistance";
 type LibraryMapProps = {
   isbn: string;
 };
