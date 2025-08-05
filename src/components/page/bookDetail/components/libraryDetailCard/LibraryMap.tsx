@@ -2,19 +2,20 @@ import { useEffect, useRef, useState } from "react";
 import { useFetchLibListQuery } from "../../../../../api/bookDetail/libraryList/useFetchLibList";
 import useCalulateDistance from "../../../../../hooks/useCalulateDistance";
 import LocationSvg from "../../../../../asset/current-location-svgrepo-com.svg";
+import type { LibraryDataProps } from "../../../../../hooks/useCalulateDistance";
+// import type { UserLatLong } from "../../../../../hooks/useCalulateDistance";
 type LibraryMapProps = {
   isbn: string;
 };
+
 function LibraryMap({ isbn }: LibraryMapProps) {
   const { data } = useFetchLibListQuery(isbn);
   const { userLocation, error } = useCalulateDistance(data);
-
   const [isKakaoMapLoaded, setIsKakaoMapLoaded] = useState(false);
   const [kakaoMap, setKakaoMap] = useState<kakao.maps.Map>();
   const [userCurrentLocMarker, setUserCurrentLocMarker] =
     useState<kakao.maps.Marker | null>(null);
   const mapContainer = useRef<HTMLDivElement>(null);
-
   const showCurrentLocation = (kakaoMap: kakao.maps.Map) => {
     if (userCurrentLocMarker) {
       userCurrentLocMarker.setMap(null);
@@ -42,6 +43,37 @@ function LibraryMap({ isbn }: LibraryMapProps) {
       );
     }
   };
+  const showLibraryMarkers = (
+    data: LibraryDataProps[],
+    kakaoMap: kakao.maps.Map
+  ) => {
+    const libLocs = data.map((lib) => ({
+      libName: lib.libName,
+      latLong: new window.kakao.maps.LatLng(lib.latitude, lib.longitude),
+    }));
+    const bounds = new window.kakao.maps.LatLngBounds();
+
+    libLocs.forEach(({ libName, latLong }) => {
+      const marker = new window.kakao.maps.Marker({
+        map: kakaoMap,
+        position: latLong,
+        title: libName,
+        clickable: true,
+      });
+
+      marker.setMap(kakaoMap);
+      bounds.extend(latLong);
+      const markerContent = `<span class="p-6">${marker.getTitle()}</span>`;
+      const infoWindow = new window.kakao.maps.InfoWindow({
+        content: markerContent,
+        removable: true,
+      });
+      kakao.maps.event.addListener(marker, "click", function () {
+        infoWindow.open(kakaoMap, marker);
+      });
+    });
+    kakaoMap.setBounds(bounds);
+  };
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -57,6 +89,7 @@ function LibraryMap({ isbn }: LibraryMapProps) {
         const map = new window.kakao.maps.Map(mapContainer.current, mapOptions);
         setKakaoMap(map);
         setIsKakaoMapLoaded(true);
+        showLibraryMarkers(data, map);
       });
     };
 

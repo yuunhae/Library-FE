@@ -1,5 +1,6 @@
 import type { LibraryDataProps } from "../../../../../hooks/useCalulateDistance";
-import { LibraryCard } from "./components/libraryCard";
+import { LibraryCard } from "./components/LibraryCard";
+
 //도서관 정보
 
 type LibraryListProps = {
