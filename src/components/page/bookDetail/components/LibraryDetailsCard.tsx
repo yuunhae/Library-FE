@@ -12,16 +12,10 @@ function LibraryInfo({ isbn }: LibraryInfoProps) {
   const { data } = useFetchLibListQuery(isbn);
   const { LibraryData, error } = useCalulateDistance(data);
   const searchOptions = ["목록", "지도"];
-
   const [option, setOption] = useState("목록");
   const [search, setSearch] = useState("");
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
-  };
-
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    // 검색 로직 추가
   };
 
   const availableCount = LibraryData.filter((lib) => lib.isAvailable).length;
@@ -48,10 +42,7 @@ function LibraryInfo({ isbn }: LibraryInfoProps) {
       </section>
 
       <section>
-        <form
-          onSubmit={handleSearch}
-          className="w-full h-10 flex flex-row space-x-4"
-        >
+        <form className="w-full h-10 flex flex-row space-x-4">
           <input
             type="text"
             value={search}
@@ -69,7 +60,11 @@ function LibraryInfo({ isbn }: LibraryInfoProps) {
 
       <section>
         {LibraryData && option == "목록" ? (
-          <LibraryList LibraryData={LibraryData} error={error} />
+          <LibraryList
+            LibraryData={LibraryData}
+            error={error}
+            searchKeyword={search}
+          />
         ) : (
           <LibraryMap isbn={isbn} />
         )}

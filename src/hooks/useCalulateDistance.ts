@@ -14,13 +14,14 @@ export type LibraryDataProps = {
   distance?: number;
 };
 
-type userLatLong = {
+export type UserLatLong = {
   latitude: number;
   longitude: number;
 };
 
+
 function useCalulateDistance(data: LibraryDataProps[]) {
-  const [userLocation, setUserLocation] = useState<userLatLong>();
+  const [userLocation, setUserLocation] = useState<UserLatLong>();
   const [error, setError] = useState<GeolocationPositionError>();
 
   //사용자 위치 가져오기
