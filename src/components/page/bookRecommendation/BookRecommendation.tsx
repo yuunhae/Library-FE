@@ -204,7 +204,6 @@ const BookRecommendation = () => {
                 publisher={book.publisher}
                 publicationYear={book.publicationYear}
                 loanCount={book.loanCount}
-                pageCount={book.pageCount}
                 isbn13={book.isbn13}
               />
             ))}

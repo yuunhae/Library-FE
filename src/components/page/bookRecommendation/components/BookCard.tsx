@@ -8,7 +8,6 @@ interface BookCardProps {
   publisher: string;
   publicationYear: number;
   loanCount: number;
-  pageCount: number;
   isbn13: string;
   // onDetail?: () => void;
 }
@@ -19,7 +18,6 @@ const BookCard: React.FC<BookCardProps> = ({
   publisher,
   publicationYear,
   loanCount,
-  pageCount,
   isbn13,
   // onDetail,
 }) => {
@@ -45,8 +43,8 @@ const BookCard: React.FC<BookCardProps> = ({
         </div>
       </div>
       <div className="flex flex-row justify-between items-center text-xs text-gray-500 mb-2">
-        <span>페이지</span>
-        <span className="text-blue-600">{pageCount}p</span>
+        <span>ISBN</span>
+        <span className="text-blue-600">{isbn13}</span>
       </div>
       <div className="flex flex-row justify-between items-center text-xs text-gray-500 mb-2">
         <span>대출</span>
