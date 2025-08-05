@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Bottom = () => {
   return (
     <footer className="bg-gray-100 w-full">
@@ -15,10 +17,38 @@ const Bottom = () => {
         <div className="mb-8 md:mb-0">
           <h2 className="text-lg font-semibold mb-2">서비스</h2>
           <ul className="text-gray-700 text-sm leading-relaxed">
-            <li>도서 추천</li>
-            <li>지원사업 정보</li>
-            <li>창업 가이드</li>
-            <li>실전 자료</li>
+            <li>
+              <Link
+                to="/book-recommendation"
+                className="hover:text-[#3366e5] transition-colors"
+              >
+                도서 추천
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/support"
+                className="hover:text-[#3366e5] transition-colors"
+              >
+                지원사업 정보
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/resources"
+                className="hover:text-[#3366e5] transition-colors"
+              >
+                창업 가이드
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/startup-resource"
+                className="hover:text-[#3366e5] transition-colors"
+              >
+                실전 자료
+              </Link>
+            </li>
           </ul>
         </div>
         {/* 우측: 연락처 */}
