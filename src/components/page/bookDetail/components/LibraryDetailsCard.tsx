@@ -4,7 +4,10 @@ import LibraryMap from "./libraryDetailCard/LibraryMap";
 import { useFetchLibListQuery } from "../../../../api/bookDetail/libraryList/useFetchLibList";
 import useCalulateDistance from "../../../../hooks/useCalulateDistance";
 import useGeolocation from "../../../../hooks/useGeolocation";
-import { getRegionCodeFromCoordinates, getRegionNameFromCode } from "../../../../utils/regionMapping";
+import {
+  getRegionCodeFromCoordinates,
+  getRegionNameFromCode,
+} from "../../../../utils/regionMapping";
 
 type LibraryInfoProps = {
   isbn: string;
@@ -12,11 +15,12 @@ type LibraryInfoProps = {
 
 function LibraryInfo({ isbn }: LibraryInfoProps) {
   const { latitude, longitude } = useGeolocation();
-  
-  const regionCode = latitude && longitude 
-    ? getRegionCodeFromCoordinates(latitude, longitude) 
-    : null;
-    
+
+  const regionCode =
+    latitude && longitude
+      ? getRegionCodeFromCoordinates(latitude, longitude)
+      : null;
+
   const { data } = useFetchLibListQuery(isbn, regionCode || undefined);
   const { LibraryData, error } = useCalulateDistance(data);
   const searchOptions = ["목록", "지도"];
@@ -28,7 +32,7 @@ function LibraryInfo({ isbn }: LibraryInfoProps) {
 
   const availableCount = LibraryData.filter((lib) => lib.isAvailable).length;
   const regionName = regionCode ? getRegionNameFromCode(regionCode) : null;
-  const locationPrefix = regionName ? `${regionName} 내` : '전국';
+  const locationPrefix = regionName ? `${regionName} 내` : "전국";
 
   return (
     <div className="space-y-4">
@@ -64,11 +68,11 @@ function LibraryInfo({ isbn }: LibraryInfoProps) {
       </section>
 
       <p className="text-left text-sm text-[#666] font-light">
-        {locationPrefix} 총 {LibraryData.length}개의 도서관 중 {availableCount}개 도서관에서 대출
-        가능
+        {locationPrefix} 총 {LibraryData.length}개의 도서관 중 {availableCount}
+        개 도서관에서 대출 가능
       </p>
 
-      <section>
+      <section className="w-full h-[600px] overflow-x-scroll">
         {LibraryData && option == "목록" ? (
           <LibraryList
             LibraryData={LibraryData}
