@@ -2,35 +2,24 @@ import React, { useState } from "react";
 import LibraryList from "./libraryDetailCard/Librarylist";
 import LibraryMap from "./libraryDetailCard/LibraryMap";
 import { useFetchLibListQuery } from "../../../../api/bookDetail/libraryList/useFetchLibList";
-import useCalulateDistance from "../../../../hooks/useCalulateDistance";
-import useGeolocation from "../../../../hooks/useGeolocation";
-import {
-  getRegionCodeFromCoordinates,
-  getRegionNameFromCode,
-} from "../../../../utils/regionMapping";
+import { getRegionNameFromCode } from "../../../../utils/regionMapping";
 
-type LibraryInfoProps = {
+export type LibraryInfoProps = {
   isbn: string;
+  regionCode: string | null;
 };
 
-function LibraryInfo({ isbn }: LibraryInfoProps) {
-  const { latitude, longitude } = useGeolocation();
-
-  const regionCode =
-    latitude && longitude
-      ? getRegionCodeFromCoordinates(latitude, longitude)
-      : null;
-
-  const { data } = useFetchLibListQuery(isbn, regionCode || undefined);
-  const { LibraryData, error } = useCalulateDistance(data);
+function LibraryDetailsCard({ isbn, regionCode }: LibraryInfoProps) {
   const searchOptions = ["목록", "지도"];
   const [option, setOption] = useState("목록");
   const [search, setSearch] = useState("");
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
-
-  const availableCount = LibraryData.filter((lib) => lib.isAvailable).length;
+  const { data } = useFetchLibListQuery(isbn, regionCode || undefined);
+  const availableCount = data
+    ? data.filter((lib) => lib.isAvailable).length
+    : "";
   const regionName = regionCode ? getRegionNameFromCode(regionCode) : null;
   const locationPrefix = regionName ? `${regionName} 내` : "전국";
 
@@ -66,25 +55,24 @@ function LibraryInfo({ isbn }: LibraryInfoProps) {
           />
         </form>
       </section>
-
-      <p className="text-left text-sm text-[#666] font-light">
-        {locationPrefix} 총 {LibraryData.length}개의 도서관 중 {availableCount}
-        개 도서관에서 대출 가능
-      </p>
-
-      <section className="w-full h-[600px] overflow-x-scroll">
-        {LibraryData && option == "목록" ? (
-          <LibraryList
-            LibraryData={LibraryData}
-            error={error}
-            searchKeyword={search}
-          />
-        ) : (
-          <LibraryMap isbn={isbn} />
-        )}
-      </section>
+      {data && (
+        <article>
+          <p className="text-left text-sm text-[#666] font-light">
+            {locationPrefix} 총 {data.length}개의 도서관 중 {availableCount}개
+            도서관에서 대출 가능
+          </p>
+          <section className="w-full h-[600px] overflow-x-hidden">
+            {option == "목록" ? (
+              <LibraryList isbn={isbn} regionCode={regionCode} />
+            ) : (
+              // <LibraryList isbn={isbn} searchKeyword={search} />
+              <LibraryMap data={data} />
+            )}
+          </section>
+        </article>
+      )}
     </div>
   );
 }
 
-export default LibraryInfo;
+export default LibraryDetailsCard;

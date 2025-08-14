@@ -56,6 +56,10 @@ const router = createBrowserRouter([
     path: "/startup-resource/:id",
     element: <StartupResourceDetail />,
   },
+  {
+    path: "*",
+    element: <div>잘못된 접근입니다.</div>,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
