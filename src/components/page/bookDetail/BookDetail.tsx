@@ -6,12 +6,29 @@ import BookDetailsCard from "./components/BookDetailsCard";
 import LibraryDetailsCard from "./components/LibraryDetailsCard";
 
 import { Suspense } from "react";
+import useGeolocation from "../../../hooks/useGeolocation";
+import { getRegionCodeFromCoordinates } from "../../../utils/regionMapping";
 type Params = { isbn: string };
 
 function BookDetail() {
   const { isbn } = useParams<Params>();
-  if (!isbn) {
-    return <div>ISBN이 없습니다.</div>; // 없는 경우를 명시적으로 처리
+  const { latitude, longitude, error, loading } = useGeolocation();
+
+  if (!isbn || isbn.length < 13) {
+    return <p>잘못된 ISBN 입니다. 다시 시도해주세요</p>;
+  }
+
+  const regionCode =
+    latitude && longitude
+      ? getRegionCodeFromCoordinates(latitude, longitude)
+      : null;
+
+  if (loading) {
+    <p>위치 정보를 불러 오는 중입니다.</p>;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
   }
 
   return (
@@ -34,7 +51,7 @@ function BookDetail() {
               </section>
 
               <section className="p-6 border border-border-color rounded shadow-sm">
-                <LibraryDetailsCard isbn={isbn} />
+                <LibraryDetailsCard isbn={isbn} regionCode={regionCode} />
               </section>
             </div>
           )}
