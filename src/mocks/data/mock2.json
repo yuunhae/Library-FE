@@ -1,0 +1,16 @@
+{
+  "content": [
+    { "libCode": "SN10011", "libName": "서현도서관", "address": "경기도 성남시 분당구 중앙공원로 77", "tel": "031-729-1850", "operatingTime": "평일 09:00 - 22:00, 주말 09:00 - 18:00", "homepage": "https://www.snlib.go.kr/sh/index.do", "latitude": 37.3845, "longitude": 127.1205, "isAvailable": false, "returnDate": "2025-10-18" },
+    { "libCode": "SN10012", "libName": "위례도서관", "address": "경기도 성남시 수정구 위례광장로 11", "tel": "031-729-1880", "operatingTime": "평일 09:00 - 22:00, 주말 09:00 - 18:00", "homepage": "https://www.snlib.go.kr/wry/index.do", "latitude": 37.4795, "longitude": 127.1428, "isAvailable": true, "returnDate": "" },
+    { "libCode": "SN10013", "libName": "성남시청 하늘 북카페", "address": "경기도 성남시 중원구 성남대로 997", "tel": "031-729-1550", "operatingTime": "평일 09:00 - 18:00, 주말 휴관", "homepage": "https://www.seongnam.go.kr/", "latitude": 37.4341, "longitude": 127.1429, "isAvailable": true, "returnDate": "" },
+    { "libCode": "SN10014", "libName": "야탑도서관", "address": "경기도 성남시 분당구 장미로 133", "tel": "031-729-1680", "operatingTime": "평일 09:00 - 18:00, 주말 09:00 - 18:00", "homepage": "https://www.snlib.go.kr/yt/index.do", "latitude": 37.4087, "longitude": 127.1293, "isAvailable": true, "returnDate": "" },
+    { "libCode": "SN10015", "libName": "정자도서관", "address": "경기도 성남시 분당구 정자로 30", "tel": "031-729-1730", "operatingTime": "평일 09:00 - 22:00, 주말 09:00 - 18:00", "homepage": "https://www.snlib.go.kr/jj/index.do", "latitude": 37.3712, "longitude": 127.1121, "isAvailable": false, "returnDate": "2025-10-25" },
+    { "libCode": "SN10016", "libName": "금광도서관", "address": "경기도 성남시 중원구 금빛로 115번길 5", "tel": "031-729-1950", "operatingTime": "평일 09:00 - 20:00, 주말 휴관", "homepage": "https://www.snlib.go.kr/gg/index.do", "latitude": 37.4529, "longitude": 127.1612, "isAvailable": true, "returnDate": "" },
+    { "libCode": "SN10017", "libName": "상대원도서관", "address": "경기도 성남시 중원구 박석로 30", "tel": "031-729-1980", "operatingTime": "평일 09:00 - 22:00, 주말 09:00 - 18:00", "homepage": "https://www.snlib.go.kr/sdw/index.do", "latitude": 37.4262, "longitude": 127.1585, "isAvailable": true, "returnDate": "" },
+    { "libCode": "SN10018", "libName": "은행도서관", "address": "경기도 성남시 중원구 산성대로 480번길 15", "tel": "031-729-1930", "operatingTime": "평일 09:00 - 22:00, 주말 09:00 - 18:00", "homepage": "https://www.snlib.go.kr/eh/index.do", "latitude": 37.4568, "longitude": 127.1511, "isAvailable": false, "returnDate": "2025-11-05" },
+    { "libCode": "SN10019", "libName": "태평도서관", "address": "경기도 성남시 수정구 남문로 52번길 11", "tel": "031-729-1820", "operatingTime": "평일 09:00 - 18:00, 주말 09:00 - 18:00", "homepage": "https://www.snlib.go.kr/tp/index.do", "latitude": 37.4475, "longitude": 127.1435, "isAvailable": true, "returnDate": "" },
+    { "libCode": "SN10020", "libName": "중앙공원 북파크", "address": "경기도 성남시 분당구 중앙공원 내", "tel": "031-729-1790", "operatingTime": "매일 10:00 - 19:00", "homepage": "https://www.snlib.go.kr/", "latitude": 37.3828, "longitude": 127.1198, "isAvailable": true, "returnDate": "" }
+  ],
+  "totalPages": 5,
+  "hasNext": true
+}

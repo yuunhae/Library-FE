@@ -1,15 +1,18 @@
 import { useInView } from "react-intersection-observer";
 import { useFetchLibListQuery } from "../../../../../api/bookDetail/libraryList/useFetchLibList";
 import { useEffect } from "react";
-import { LibraryCard } from "./components/libraryCard";
+import { LibraryCard } from "./components/LibraryCard";
+// import { MiniLoadingSpinner } from "../../../../common/LoadingSpinner";
+import LibrarySkeleton from "./LibrarySkeleton";
 
 //도서관 정보
 type LibraryListProps = {
   isbn: string;
   regionCode: string | null;
+  searchKeyword: string;
 };
 
-function LibraryList({ isbn, regionCode }: LibraryListProps) {
+function LibraryList({ isbn, regionCode, searchKeyword }: LibraryListProps) {
   const {
     data,
     isError,
@@ -20,15 +23,28 @@ function LibraryList({ isbn, regionCode }: LibraryListProps) {
   } = useFetchLibListQuery(isbn, regionCode || undefined);
 
   const { ref, inView } = useInView({
-    threshold: 1,
+    rootMargin: "0px 0px 800px 0px",
     triggerOnce: true,
   });
 
   useEffect(() => {
-    if (inView && hasNextPage && !isFetchingNextPage && !isLoading) {
+    if (
+      inView &&
+      hasNextPage &&
+      !isFetchingNextPage &&
+      !isLoading &&
+      !searchKeyword
+    ) {
       fetchNextPage();
     }
-  }, [inView, hasNextPage, fetchNextPage, isLoading]);
+  }, [
+    inView,
+    hasNextPage,
+    fetchNextPage,
+    isLoading,
+    isFetchingNextPage,
+    searchKeyword,
+  ]);
 
   if (isError) {
     return (
@@ -40,34 +56,40 @@ function LibraryList({ isbn, regionCode }: LibraryListProps) {
 
   return (
     <section>
-      {data && (
-        <article className="space-y-3">
-          <div className="space-y-3">
-            {data.map((lib) => {
-              // if (
-              //   lib.address.includes(searchKeyword) ||
-              //   lib.libName.includes(searchKeyword)
-              // )
-              return (
-                <article ref={ref}>
-                  <LibraryCard
-                    key={lib.libCode}
-                    libCode={lib.libCode}
-                    libName={lib.libName}
-                    address={lib.address}
-                    tel={lib.tel}
-                    operatingTime={lib.operatingTime}
-                    isAvailable={lib.isAvailable}
-                    LibLatitude={lib.latitude}
-                    LibLongitude={lib.longitude}
-                  />
-                </article>
-              );
-            })}
-          </div>
-          {isFetchingNextPage && "로드중"}
-          {!hasNextPage && "마지막 페이지 입니다."}
-        </article>
+      {isLoading ? (
+        <LibrarySkeleton />
+      ) : (
+        data && (
+          <article className="space-y-3">
+            <div className="space-y-3">
+              {data
+                .filter((lib) => lib && lib.address && lib.libName) // undefined나 필수 속성이 없는 항목 제거
+                .map((lib) => {
+                  if (
+                    lib.address.includes(searchKeyword) ||
+                    lib.libName.includes(searchKeyword)
+                  )
+                    return (
+                      <article key={lib.libCode} ref={ref}>
+                        <LibraryCard
+                          libCode={lib.libCode}
+                          libName={lib.libName}
+                          address={lib.address}
+                          tel={lib.tel}
+                          operatingTime={lib.operatingTime}
+                          isAvailable={lib.isAvailable}
+                          LibLatitude={lib.latitude}
+                          LibLongitude={lib.longitude}
+                        />
+                      </article>
+                    );
+                  return null;
+                })}
+            </div>
+            {isFetchingNextPage && <LibrarySkeleton />}
+            {!hasNextPage && "마지막 페이지 입니다."}
+          </article>
+        )
       )}
     </section>
   );

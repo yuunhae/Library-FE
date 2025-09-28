@@ -68,7 +68,7 @@ export const LibraryCard = ({
             대출가능
           </div>
         ) : (
-          <div className="w-24 h-8 xs:w-17 xs:h-6 sm:text-xs bg-[#EDFCED] text-[#DE5252] text-xs flex justify-center items-center rounded">
+          <div className="w-24 h-8 xs:w-17 xs:h-6 sm:text-xs bg-[#fff3ed] text-[#DE5252] text-xs flex justify-center items-center rounded">
             대출불가
           </div>
         )}
