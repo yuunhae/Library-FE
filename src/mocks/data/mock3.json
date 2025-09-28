@@ -1,0 +1,16 @@
+{
+  "content": [
+    { "libCode": "SN10021", "libName": "가천대학교 중앙도서관", "address": "경기도 성남시 수정구 성남대로 1342", "tel": "031-750-5114", "operatingTime": "학기중 24시간, 방학중 09:00 - 17:00", "homepage": "https://lib.gachon.ac.kr/", "latitude": 37.4495, "longitude": 127.1293, "isAvailable": false, "returnDate": "2025-10-10" },
+    { "libCode": "SN10022", "libName": "을지대학교 중앙도서관", "address": "경기도 성남시 수정구 산성대로 553", "tel": "031-740-7114", "operatingTime": "평일 09:00 - 21:00", "homepage": "https://lib.eulji.ac.kr/", "latitude": 37.4578, "longitude": 127.1501, "isAvailable": true, "returnDate": "" },
+    { "libCode": "SN10023", "libName": "신구대학교 중앙도서관", "address": "경기도 성남시 중원구 광명로 377", "tel": "031-740-1114", "operatingTime": "평일 09:00 - 20:00", "homepage": "https://lib.shingu.ac.kr/", "latitude": 37.4442, "longitude": 127.1648, "isAvailable": true, "returnDate": "" },
+    { "libCode": "SN10024", "libName": "동서울대학교 중앙도서관", "address": "경기도 성남시 수정구 복정로 76", "tel": "031-720-2114", "operatingTime": "평일 09:00 - 21:00", "homepage": "https://library.dsc.ac.kr/", "latitude": 37.4619, "longitude": 127.1357, "isAvailable": true, "returnDate": "" },
+    { "libCode": "SN10025", "libName": "책테마파크 북카페", "address": "경기도 성남시 분당구 율동 323", "tel": "031-708-3588", "operatingTime": "매일 10:00 - 18:00", "homepage": "https://www.sncf.or.kr/book/", "latitude": 37.3695, "longitude": 127.1415, "isAvailable": false, "returnDate": "2025-10-28" },
+    { "libCode": "SN10026", "libName": "성남아트센터 도서관", "address": "경기도 성남시 분당구 성남대로 808", "tel": "031-783-8000", "operatingTime": "평일 10:00 - 18:00, 주말 휴관", "homepage": "https://www.snart.or.kr/", "latitude": 37.4148, "longitude": 127.1278, "isAvailable": true, "returnDate": "" },
+    { "libCode": "SN10027", "libName": "성남시의회 도서관", "address": "경기도 성남시 중원구 성남대로 997", "tel": "031-729-3890", "operatingTime": "평일 09:00 - 18:00", "homepage": "https://www.sncl.go.kr/", "latitude": 37.4345, "longitude": 127.1431, "isAvailable": true, "returnDate": "" },
+    { "libCode": "SN10028", "libName": "경기도립성남도서관", "address": "경기도 성남시 수정구 공원로 350", "tel": "031-730-3500", "operatingTime": "평일 09:00 - 22:00, 주말 09:00 - 17:00", "homepage": "https://www.snlib.or.kr/", "latitude": 37.4539, "longitude": 127.1539, "isAvailable": false, "returnDate": "2025-11-11" },
+    { "libCode": "SN10029", "libName": "이매역 작은도서관", "address": "경기도 성남시 분당구 이매역 내", "tel": "031-729-1695", "operatingTime": "평일 10:00 - 19:00", "homepage": "https://www.snlib.go.kr/", "latitude": 37.3941, "longitude": 127.1281, "isAvailable": true, "returnDate": "" },
+    { "libCode": "SN10030", "libName": "수내역 작은도서관", "address": "경기도 성남시 분당구 수내역 내", "tel": "031-729-1725", "operatingTime": "평일 10:00 - 19:00", "homepage": "https://www.snlib.go.kr/", "latitude": 37.3789, "longitude": 127.1165, "isAvailable": true, "returnDate": "" }
+  ],
+  "totalPages": 5,
+  "hasNext": true
+}

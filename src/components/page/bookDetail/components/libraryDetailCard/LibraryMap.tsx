@@ -1,49 +1,52 @@
 import { useEffect, useRef, useState } from "react";
-import { useFetchLibListQuery } from "../../../../../api/bookDetail/libraryList/useFetchLibList";
-import useCalulateDistance from "../../../../../hooks/useCalulateDistance";
 import LocationSvg from "../../../../../asset/current-location-svgrepo-com.svg";
-import type { LibraryDataProps } from "../../../../../hooks/useCalulateDistance";
-type LibraryMapProps = {
-  isbn: string;
+import useGeolocation from "../../../../../hooks/useGeolocation";
+type LibListForMap = {
+  libCode: string;
+  libName: string;
+  address: string;
+  tel: string;
+  operatingTime: string;
+  homepage: string;
+  latitude: number;
+  longitude: number;
+  isAvailable: boolean;
+  returnDate: string;
 };
 
-function LibraryMap({ isbn }: LibraryMapProps) {
-  const { data } = useFetchLibListQuery(isbn);
-  const { userLocation, error } = useCalulateDistance(data);
+type LibraryMapProps = {
+  data: LibListForMap[];
+};
+
+function LibraryMap({ data }: LibraryMapProps) {
+  const { latitude, longitude, error } = useGeolocation();
   const [isKakaoMapLoaded, setIsKakaoMapLoaded] = useState(false);
   const [kakaoMap, setKakaoMap] = useState<kakao.maps.Map>();
   const [userCurrentLocMarker, setUserCurrentLocMarker] =
     useState<kakao.maps.Marker | null>(null);
   const mapContainer = useRef<HTMLDivElement>(null);
+
   const showCurrentLocation = (kakaoMap: kakao.maps.Map) => {
     if (userCurrentLocMarker) {
       userCurrentLocMarker.setMap(null);
       setUserCurrentLocMarker(null);
     }
 
-    if (!isKakaoMapLoaded || !userLocation) return;
+    if (!isKakaoMapLoaded || !latitude || !longitude) return;
 
-    if (userLocation && isKakaoMapLoaded && !userCurrentLocMarker) {
+    if (latitude && longitude && isKakaoMapLoaded && !userCurrentLocMarker) {
       const marker = new window.kakao.maps.Marker({
         map: kakaoMap,
-        position: new window.kakao.maps.LatLng(
-          userLocation.latitude,
-          userLocation.longitude
-        ),
+        position: new window.kakao.maps.LatLng(latitude, longitude),
       });
 
       marker.setMap(kakaoMap);
       setUserCurrentLocMarker(marker);
-      kakaoMap.setCenter(
-        new window.kakao.maps.LatLng(
-          userLocation.latitude,
-          userLocation.longitude
-        )
-      );
+      kakaoMap.setCenter(new window.kakao.maps.LatLng(latitude, longitude));
     }
   };
   const showLibraryMarkers = (
-    data: LibraryDataProps[],
+    data: LibListForMap[],
     kakaoMap: kakao.maps.Map
   ) => {
     const libLocs = data.map((lib) => ({
