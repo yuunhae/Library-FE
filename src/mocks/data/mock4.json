@@ -1,0 +1,16 @@
+{
+  "content": [
+    { "libCode": "SN10031", "libName": "미금역 작은도서관", "address": "경기도 성남시 분당구 미금역 내", "tel": "031-729-1765", "operatingTime": "평일 10:00 - 19:00", "homepage": "https://www.snlib.go.kr/", "latitude": 37.3499, "longitude": 127.1085, "isAvailable": true, "returnDate": "" },
+    { "libCode": "SN10032", "libName": "모란역 작은도서관", "address": "경기도 성남시 중원구 모란역 내", "tel": "031-729-1915", "operatingTime": "평일 10:00 - 19:00", "homepage": "https://www.snlib.go.kr/", "latitude": 37.4321, "longitude": 127.1451, "isAvailable": false, "returnDate": "2025-10-12" },
+    { "libCode": "SN10033", "libName": "신흥역 작은도서관", "address": "경기도 성남시 수정구 신흥역 내", "tel": "031-729-1815", "operatingTime": "평일 10:00 - 19:00", "homepage": "https://www.snlib.go.kr/", "latitude": 37.4418, "longitude": 127.1408, "isAvailable": true, "returnDate": "" },
+    { "libCode": "SN10034", "libName": "수진역 작은도서관", "address": "경기도 성남시 수정구 수진역 내", "tel": "031-729-1818", "operatingTime": "평일 10:00 - 19:00", "homepage": "https://www.snlib.go.kr/", "latitude": 37.4375, "longitude": 127.1425, "isAvailable": true, "returnDate": "" },
+    { "libCode": "SN10035", "libName": "단대오거리역 작은도서관", "address": "경기도 성남시 중원구 단대오거리역 내", "tel": "031-729-1925", "operatingTime": "평일 10:00 - 19:00", "homepage": "https://www.snlib.go.kr/", "latitude": 37.4485, "longitude": 127.1481, "isAvailable": true, "returnDate": "" },
+    { "libCode": "SN10036", "libName": "남한산성입구역 작은도서관", "address": "경기도 성남시 중원구 남한산성입구역 내", "tel": "031-729-1935", "operatingTime": "평일 10:00 - 19:00", "homepage": "https://www.snlib.go.kr/", "latitude": 37.4545, "longitude": 127.1541, "isAvailable": true, "returnDate": "" },
+    { "libCode": "SN10037", "libName": "산성역 작은도서관", "address": "경기도 성남시 수정구 산성역 내", "tel": "031-729-1845", "operatingTime": "평일 10:00 - 19:00", "homepage": "https://www.snlib.go.kr/", "latitude": 37.4588, "longitude": 127.1518, "isAvailable": false, "returnDate": "2025-11-20" },
+    { "libCode": "SN10038", "libName": "태평역 작은도서관", "address": "경기도 성남시 수정구 태평역 내", "tel": "031-729-1825", "operatingTime": "평일 10:00 - 19:00", "homepage": "https://www.snlib.go.kr/", "latitude": 37.4428, "longitude": 127.1358, "isAvailable": true, "returnDate": "" },
+    { "libCode": "SN10039", "libName": "가천대역 작은도서관", "address": "경기도 성남시 수정구 가천대역 내", "tel": "031-729-1828", "operatingTime": "평일 10:00 - 19:00", "homepage": "https://www.snlib.go.kr/", "latitude": 37.4488, "longitude": 127.1298, "isAvailable": true, "returnDate": "" },
+    { "libCode": "SN10040", "libName": "네이버 라이브러리", "address": "경기도 성남시 분당구 불정로 6", "tel": "1588-3830", "operatingTime": "운영 종료", "homepage": "https://library.navercorp.com/", "latitude": 37.3596, "longitude": 127.1053, "isAvailable": false, "returnDate": "2025-12-31" }
+  ],
+  "totalPages": 5,
+  "hasNext": true
+}

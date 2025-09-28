@@ -1,0 +1,16 @@
+{
+  "content": [
+    { "libCode": "SN10041", "libName": "카카오 판교 아지트 도서관", "address": "경기도 성남시 분당구 판교역로 235", "tel": "1577-3321", "operatingTime": "임직원 전용", "homepage": "https://www.kakaocorp.com/", "latitude": 37.4021, "longitude": 127.1086, "isAvailable": true, "returnDate": "" },
+    { "libCode": "SN10042", "libName": "SK C&C 판교캠퍼스 도서관", "address": "경기도 성남시 분당구 판교로 344", "tel": "02-6400-0114", "operatingTime": "임직원 전용", "homepage": "https://www.skcc.co.kr/", "latitude": 37.4061, "longitude": 127.1026, "isAvailable": true, "returnDate": "" },
+    { "libCode": "SN10043", "libName": "안랩 판교 사옥 도서관", "address": "경기도 성남시 분당구 판교역로 220", "tel": "031-722-8000", "operatingTime": "임직원 전용", "homepage": "https://www.ahnlab.com/", "latitude": 37.3999, "longitude": 127.1095, "isAvailable": true, "returnDate": "" },
+    { "libCode": "SN10044", "libName": "엔씨소프트 판교 R&D 센터 라이브러리", "address": "경기도 성남시 분당구 대왕판교로 644번길 12", "tel": "1600-0020", "operatingTime": "임직원 전용", "homepage": "https://kr.ncsoft.com/", "latitude": 37.4027, "longitude": 127.1039, "isAvailable": true, "returnDate": "" },
+    { "libCode": "SN10045", "libName": "넥슨코리아 판교 사옥 라이브러리", "address": "경기도 성남시 분당구 판교로 256번길 7", "tel": "1588-7701", "operatingTime": "임직원 전용", "homepage": "https://www.nexon.com/", "latitude": 37.4019, "longitude": 127.1009, "isAvailable": false, "returnDate": "2025-10-30" },
+    { "libCode": "SN10046", "libName": "한국학중앙연구원 장서각", "address": "경기도 성남시 분당구 하오개로 323", "tel": "031-709-8111", "operatingTime": "평일 09:30 - 17:30", "homepage": "https://www.aks.ac.kr/", "latitude": 37.3871, "longitude": 127.0871, "isAvailable": true, "returnDate": "" },
+    { "libCode": "SN10047", "libName": "LH오리사옥 도서관", "address": "경기도 성남시 분당구 성남대로 54", "tel": "1600-1004", "operatingTime": "임직원 전용", "homepage": "https://www.lh.or.kr/", "latitude": 37.3375, "longitude": 127.1075, "isAvailable": true, "returnDate": "" },
+    { "libCode": "SN10048", "libName": "KT 분당 본사 도서관", "address": "경기도 성남시 분당구 불정로 90", "tel": "100", "operatingTime": "임직원 전용", "homepage": "https://www.kt.com/", "latitude": 37.3591, "longitude": 127.1141, "isAvailable": true, "returnDate": "" },
+    { "libCode": "SN10049", "libName": "잡월드 어린이도서관", "address": "경기도 성남시 분당구 분당수서로 501", "tel": "1644-1313", "operatingTime": "매일 09:00 - 18:00, 월요일 휴관", "homepage": "https://www.koreajobworld.or.kr/", "latitude": 37.3671, "longitude": 127.1151, "isAvailable": true, "returnDate": "" },
+    { "libCode": "SN10050", "libName": "성남고령친화종합체험관 도서관", "address": "경기도 성남시 분당구 야탑로 255-6", "tel": "031-784-7900", "operatingTime": "평일 09:00 - 18:00", "homepage": "https://www.mirae-n.org/", "latitude": 37.4141, "longitude": 127.1441, "isAvailable": false, "returnDate": "2025-10-19" }
+  ],
+  "totalPages": 5,
+  "hasNext": false
+}
