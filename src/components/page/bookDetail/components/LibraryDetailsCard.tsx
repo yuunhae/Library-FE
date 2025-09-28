@@ -16,10 +16,10 @@ function LibraryDetailsCard({ isbn, regionCode }: LibraryInfoProps) {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
-  const { data } = useFetchLibListQuery(isbn, regionCode || undefined);
+  const { data, isLoading, isError } = useFetchLibListQuery(isbn, regionCode || undefined);
   const availableCount = data
-    ? data.filter((lib) => lib.isAvailable).length
-    : "";
+    ? data.filter((lib) => lib?.isAvailable).length
+    : 0;
   const regionName = regionCode ? getRegionNameFromCode(regionCode) : null;
   const locationPrefix = regionName ? `${regionName} 내` : "전국";
 
@@ -55,7 +55,17 @@ function LibraryDetailsCard({ isbn, regionCode }: LibraryInfoProps) {
           />
         </form>
       </section>
-      {data && (
+      {isLoading && (
+        <div className="flex justify-center items-center h-32">
+          <p>도서관 정보를 불러오는 중...</p>
+        </div>
+      )}
+      {isError && (
+        <div className="flex justify-center items-center h-32">
+          <p>도서관 정보를 불러오는데 실패했습니다.</p>
+        </div>
+      )}
+      {data && !isLoading && !isError && (
         <article>
           <p className="text-left text-sm text-[#666] font-light">
             {locationPrefix} 총 {data.length}개의 도서관 중 {availableCount}개
@@ -63,7 +73,11 @@ function LibraryDetailsCard({ isbn, regionCode }: LibraryInfoProps) {
           </p>
           <section className="w-full h-[600px] overflow-x-hidden">
             {option == "목록" ? (
-              <LibraryList isbn={isbn} regionCode={regionCode} />
+              <LibraryList
+                isbn={isbn}
+                regionCode={regionCode}
+                searchKeyword={search}
+              />
             ) : (
               // <LibraryList isbn={isbn} searchKeyword={search} />
               <LibraryMap data={data} />
