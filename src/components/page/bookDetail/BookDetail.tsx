@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import Header from "../../common/Header";
+// import Header from "../../common/Header";
 import { LoadingSpinner } from "../../common/LoadingSpinner";
 
 import BookDetailsCard from "./components/BookDetailsCard";
@@ -12,9 +12,10 @@ type Params = { isbn: string };
 
 function BookDetail() {
   const { isbn } = useParams<Params>();
+
   const { latitude, longitude, error, loading } = useGeolocation();
 
-  if (!isbn || isbn.length < 13) {
+  if (!isbn) {
     return <p>잘못된 ISBN 입니다. 다시 시도해주세요</p>;
   }
 
@@ -34,9 +35,9 @@ function BookDetail() {
   return (
     <Suspense fallback={<LoadingSpinner />}>
       <div className="min-h-screen">
-        <header>
+        {/* <header>
           <Header />
-        </header>
+        </header> */}
         <main className="p-4">
           <nav className="flex">
             {/* href 추후수정 */}
